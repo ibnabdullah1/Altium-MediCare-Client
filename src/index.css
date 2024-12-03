@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Questrial&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0%;
+  padding: 0%;
+}
+body {
+  line-height: 1.5;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+body.hidden-scrolling {
+  overflow-y: hidden;
+}
+
+.heading {
+  @apply font-bold text-secondary text-[25px] md:text-[40px] leading-[30px] md:leading-[50px] capitalize font-josefin;
+}
+.fixed-w {
+  @apply max-w-6xl mx-auto lg:px-0 px-5;
+}
+.form_input {
+  @apply appearance-none block w-full p-5 border placeholder-secondary/60 focus:outline-none focus:border-primary transition duration-150 ease-in-out;
+}

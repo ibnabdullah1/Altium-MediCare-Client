@@ -1,0 +1,14 @@
+@keyframes slideIn {
+  from {
+    transform: translateX(-90px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(40);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 1000ms ease-out;
+}

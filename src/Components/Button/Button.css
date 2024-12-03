@@ -1,0 +1,56 @@
+.btn {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  margin-right: 15px;
+  padding: 17px 40px;
+  background-color: transparent;
+  color: #212529;
+  border: 1px solid transparent;
+  transition: color 0.5s ease-in-out, background-color 0.8s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.5s ease-in-out;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Theme Button Styles */
+.theme-btn-1 {
+  background-color: #0a9a73;
+  color: white;
+  padding: 10px 25px;
+  width: 200px;
+  height: 45px;
+}
+
+.btn-effect-1 {
+  overflow: hidden;
+}
+
+.btn-effect-1:after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: white !important;
+  z-index: -1;
+  transition: width 0.8s ease;
+}
+
+.btn-effect-1:hover:after {
+  width: 100%;
+}
+
+.btn-effect-1:hover {
+  color: #0a9a73;
+  background-color: white;
+  border-color: #0a9a73;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
