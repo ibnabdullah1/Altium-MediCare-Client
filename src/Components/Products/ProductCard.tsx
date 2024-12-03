@@ -4,7 +4,13 @@ import { FaCartShopping } from "react-icons/fa6";
 import { MdCompareArrows } from "react-icons/md";
 import Rating from "react-rating";
 import "./ProductCard.css";
-const ProductCard = ({ thumbnail, title, price, originalPrice, discount }) => {
+const ProductCard = ({
+  thumbnail,
+  title,
+  price,
+  originalPrice,
+  discount,
+}: any) => {
   return (
     <div className=" group relative pb-3 ">
       <div className=" overflow-hidden bg-[#F6F8FC] py-10 ">
@@ -37,9 +43,9 @@ const ProductCard = ({ thumbnail, title, price, originalPrice, discount }) => {
         <h3 className="text-xl font-medium mt-2  ">{title}</h3>
         <div className="flex justify-between items-center w-full">
           <h4 className="text-base font-semibold  text-gray-800">
-            ${price}.00{" "}
-            <strike className="text-red">${originalPrice}.00</strike>{" "}
+            ${price}.00 <del className="text-red">${originalPrice}.00</del>
           </h4>
+
           <p className=" text-primary ">
             <Rating
               emptySymbol={

@@ -1,4 +1,9 @@
-const FeaturedProductCard2 = ({ thumbnail, title, price, originalPrice }) => {
+const FeaturedProductCard2 = ({
+  thumbnail,
+  title,
+  price,
+  originalPrice,
+}: any) => {
   return (
     <div className="flex items-center bg-white p-4 gap-3 hover:border-primary/30 border border-transparent transition-all duration-300 hover:drop-shadow-xl ">
       <img src={thumbnail} alt="" className="w-20" />
@@ -7,7 +12,7 @@ const FeaturedProductCard2 = ({ thumbnail, title, price, originalPrice }) => {
         <p className="font-semibold text-primary">
           ${price}.00{" "}
           <span className="font-normal text-sm text-primary">
-            <strike>${originalPrice}.00</strike>
+            <del className="text-red">${originalPrice}.00</del>
           </span>
         </p>
       </div>

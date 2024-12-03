@@ -1,5 +1,5 @@
 import { FaRegCalendarAlt, FaRegUser, FaTags } from "react-icons/fa";
-import PrimaryLink from "../Shared/PrimaryLink";
+import PrimaryLink from "../../Shared/PrimaryLink";
 
 const Blog = () => {
   return (
@@ -43,7 +43,7 @@ const Blog = () => {
 
 export default Blog;
 
-const BlogCard = ({ image, title, link, date, tag, author }) => {
+const BlogCard = ({ image, title, link, date, tag, author }: any) => {
   return (
     <div className="shadow-md">
       <img src={image} className="w-full" alt="" />

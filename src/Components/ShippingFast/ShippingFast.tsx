@@ -40,7 +40,7 @@ const ShippingFast = () => {
 
 export default ShippingFast;
 
-const ShippingFastCard = ({ img, title, subTitle }) => {
+const ShippingFastCard = ({ img, title, subTitle }: any) => {
   return (
     <div className="flex items-center gap-3 font-josefin ">
       <img className="size-14 object-contain" src={img} alt={title} />

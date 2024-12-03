@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import HotOfferImage from "../assets/HotOffer.jpg";
-import PrimaryButton from "./Shared/PrimaryButton";
-import PrimaryLink from "./Shared/PrimaryLink";
+import PrimaryButton from "../Shared/PrimaryButton";
+import PrimaryLink from "../Shared/PrimaryLink";
 const HotOffer = () => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -11,9 +11,9 @@ const HotOffer = () => {
   });
 
   useEffect(() => {
-    const endDate = new Date("2024-12-25T00:00:00"); // Set the end date here
+    const endDate: any = new Date("2024-12-25T00:00:00");
     const calculateTimeLeft = () => {
-      const now = new Date();
+      const now: any = new Date();
       const difference = endDate - now;
 
       if (difference <= 0) {

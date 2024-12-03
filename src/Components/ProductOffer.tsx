@@ -3,7 +3,7 @@ import { HiOutlineHomeModern } from "react-icons/hi2";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { TfiHeartBroken } from "react-icons/tfi";
 import HotOfferImage from "../assets/offerBanner4.jpg";
-import PrimaryLink from "./Shared/PrimaryLink";
+import PrimaryLink from "../Shared/PrimaryLink";
 const ProductOffer = () => {
   return (
     <div className=" bg-[#F2F6F7] p-6 py-28 font-josefin">
