@@ -12,7 +12,7 @@ const Profile = () => {
   const userPosts = [];
 
   // Fetch user data (you need to define `userData`)
-  const userData = {};
+  const userData: any = {};
 
   const followers = userData?.data?.follower.length || 0;
   const followings = userData?.data?.following.length || 0;

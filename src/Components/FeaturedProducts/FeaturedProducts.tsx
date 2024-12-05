@@ -1,8 +1,13 @@
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import offerImage2 from "../../assets/offerAds2.png";
-import { productsData } from "../../Data/productsData";
+import { useAllProductsQuery } from "../../Redux/features/product/productApi";
 import ProductCard from "../Products/ProductCard";
 const FeaturedProducts = () => {
+  const { data, error, isLoading } = useAllProductsQuery(undefined);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="fixed-w">
       <div className="py-10 font-josefin">
@@ -45,8 +50,8 @@ const FeaturedProducts = () => {
             </div>
           </div>
           <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {productsData.slice(0, 6).map((product, i) => (
-              <ProductCard key={i} {...product} />
+            {data?.data.slice(0, 6).map((product: any) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </div>

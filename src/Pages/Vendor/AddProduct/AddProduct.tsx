@@ -2,10 +2,10 @@ import { Checkbox, Input, Select, SelectProps } from "antd";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { toast } from "react-toastify";
-import { productCategories } from "../../Data/productsData"; // Ensure you import this from correct path
-import { useCreateProductMutation } from "../../Redux/features/product/productApi";
-import { useGetAllShopQuery } from "../../Redux/features/shop/shopApi";
-import CustomFileInput from "../../Shared/SelectImage";
+import { productCategories } from "../../../Data/productsData"; // Ensure you import this from correct path
+import { useCreateProductMutation } from "../../../Redux/features/product/productApi";
+import { useGetAllShopQuery } from "../../../Redux/features/shop/shopApi";
+import CustomFileInput from "../../../Shared/SelectImage";
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
@@ -85,9 +85,9 @@ const AddProduct = () => {
       }
       setLoading(true);
       const res = await createProduct(formData).unwrap();
-      if (res.success) {
+      if (res?.success) {
         setLoading(false);
-        toast.success(res.message);
+        toast.success(res?.message);
         // e.target.reset();
         // setImageFiles([]);
         // setImagePreviews([]);
@@ -95,7 +95,7 @@ const AddProduct = () => {
     } catch (error: any) {
       setLoading(false);
       toast.error(
-        error.data.message || error?.message || "Something went wrong!"
+        error?.data?.message || error?.message || "Something went wrong!"
       );
     }
   };

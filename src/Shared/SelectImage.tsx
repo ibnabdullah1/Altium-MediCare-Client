@@ -1,4 +1,15 @@
-const CustomFileInput = ({ handleImageChange, imagePreviews }: any) => {
+const CustomFileInput = ({
+  handleImageChange,
+  imagePreviews,
+  setImagePreviews,
+}: any) => {
+  const handleImageRemove = (imageDataUrl: string) => {
+    const updatedPreviews = imagePreviews.filter(
+      (preview: string) => preview !== imageDataUrl
+    );
+    setImagePreviews(updatedPreviews);
+  };
+
   return (
     <div className="py-2">
       <div className="w-full border rounded border-dashed border-primary p-4 text-center bg-white">
@@ -29,7 +40,7 @@ const CustomFileInput = ({ handleImageChange, imagePreviews }: any) => {
       </div>
       {imagePreviews.length > 0 && (
         <div className="flex gap-5 my-5 flex-wrap">
-          {imagePreviews.map((imageDataUrl: any) => (
+          {imagePreviews.map((imageDataUrl: any, index: number) => (
             <div
               key={imageDataUrl}
               className="relative w-20 h-14 object-cover rounded border border-dashed border-primary p-1"
@@ -39,6 +50,12 @@ const CustomFileInput = ({ handleImageChange, imagePreviews }: any) => {
                 className="h-full w-full object-cover object-center rounded-md"
                 src={imageDataUrl}
               />
+              <button
+                onClick={() => handleImageRemove(imageDataUrl)}
+                className="absolute top-0 right-0 bg-red-500 text-red rounded-full text-xs p-1"
+              >
+                X
+              </button>
             </div>
           ))}
         </div>

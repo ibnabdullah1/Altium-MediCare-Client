@@ -2,14 +2,22 @@ import { FiFilter } from "react-icons/fi";
 import { HiMiniBars3 } from "react-icons/hi2";
 import { LuSearch } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
-import logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
+import logo from "../../assets/light-logo.png";
 import Notification from "../../Shared/Notification";
 import DashboardDropdown from "./DashboardDropdown";
 const DashboardNavbar = ({ isActive, handleToggle }: any) => {
   return (
-    <div className="max-w-[920px] mx-auto bg-gray-50 sticky top-0 z-10 flex gap-2 justify-between items-center py-3 px-4">
+    <div className="max-w-[920px] mx-auto bg-gray-50 sticky top-0 z-10 flex gap-2 justify-between items-center py-2 px-4">
       <div className="flex lg:hidden">
-        <img className="w-32" src={logo} alt="Logo" />
+        <Link to={"/"}>
+          <div className="flex  items-center gap-1 ">
+            <img src={logo} alt="" className="size-[25px] md:size-[35px]" />
+            <h2 className="text-base md:text-xl text-secondary font-bold">
+              Altium <span className="text-primary">MediCare</span>
+            </h2>
+          </div>
+        </Link>
       </div>
       <div className="lg:flex hidden items-center gap-2">
         <div className="flex items-center bg-gray-100  rounded-lg gap-2 p-[6px]">
@@ -33,13 +41,9 @@ const DashboardNavbar = ({ isActive, handleToggle }: any) => {
         <DashboardDropdown />
         <button
           onClick={handleToggle}
-          className="flex bg-gray-100 rounded-full p-1 lg:hidden text-primary hover:bg-primary/10 duration-500"
+          className="lg:hidden flex hover:text-primary duration-200 bg-gray-100 rounded-full text-secondary/50 p-2 text-xl hover:bg-primary/10"
         >
-          {isActive ? (
-            <HiMiniBars3 className="text-2xl" />
-          ) : (
-            <MdClose className="text-2xl" />
-          )}
+          {isActive ? <HiMiniBars3 /> : <MdClose />}
         </button>
       </div>
     </div>

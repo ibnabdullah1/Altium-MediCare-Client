@@ -7,6 +7,7 @@ export default {
         poppins: "poppins",
         questrial: "Questrial",
         raleway: "Raleway",
+        roboto: "Roboto",
         josefin: "Josefin Sans",
       },
       display: ["group-hover"],

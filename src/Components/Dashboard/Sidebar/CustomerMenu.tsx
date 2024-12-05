@@ -1,4 +1,5 @@
-import { FaRegEye, FaRegHeart } from "react-icons/fa6";
+import { BsShop } from "react-icons/bs";
+import { GoHeart } from "react-icons/go";
 import {
   MdOutlineCollectionsBookmark,
   MdOutlineHistory,
@@ -14,7 +15,7 @@ const CustomerMenu = () => {
         label="My Cart"
         address="my-cart"
       />
-      <MenuItem icon={FaRegHeart} label="Wishlist" address="wishlist" />
+      <MenuItem icon={GoHeart} label="Wishlist" address="wishlist" />
       <MenuItem
         icon={MdOutlineHistory}
         label="Order History"
@@ -25,11 +26,7 @@ const CustomerMenu = () => {
         label="Recent Products"
         address="recent-products"
       />
-      <MenuItem
-        icon={FaRegEye}
-        label="Followed Shops"
-        address="followed-shops"
-      />
+      <MenuItem icon={BsShop} label="Followed Shops" address="followed-shops" />
     </>
   );
 };

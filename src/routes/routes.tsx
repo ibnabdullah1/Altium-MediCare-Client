@@ -1,15 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MainLayout from "../Layout/MainLayout";
-import AddProduct from "../Pages/AddProduct/AddProduct";
-import CreateShop from "../Pages/CreateShop/CreateShop";
+import Checkout2 from "../Pages/Customer/Checkout/Checkout2";
+import MyShoppingCart from "../Pages/Customer/MyShoppingCart/MyShoppingCart";
+import OrderHistory from "../Pages/Customer/OrderHistory/OrderHistory";
+import MyWishlist from "../Pages/Customer/Wishlist/Wishlist";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import NotFoundPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
-import ManageShops from "../Pages/ManageShops/ManageShops";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
+import ShopDetails from "../Pages/ShopDetails/ShopDetails";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import Profile from "../Pages/UserProfile/UserProfile";
+import AddProduct from "../Pages/Vendor/AddProduct/AddProduct";
+import CreateShop from "../Pages/Vendor/CreateShop/CreateShop";
+import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
+import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
 
@@ -22,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/product-details/:id",
+        element: <ProductDetails />,
+      },
+      {
+        path: "/shop/:id",
+        element: <ShopDetails />,
       },
       {
         path: "/sign-in",
@@ -56,7 +71,7 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "manage-products",
+        path: "manage-all-products",
         element: <Dashboard />,
       },
       {
@@ -79,15 +94,19 @@ const router = createBrowserRouter([
       // User Routes
       {
         path: "my-cart",
-        element: <Dashboard />,
+        element: <MyShoppingCart />,
       },
       {
         path: "wishlist",
-        element: <Dashboard />,
+        element: <MyWishlist />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout2 />,
       },
       {
         path: "order-history",
-        element: <Dashboard />,
+        element: <OrderHistory />,
       },
       {
         path: "recent-products",
@@ -113,7 +132,7 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-products",
-        element: <Dashboard />,
+        element: <ManageProducts />,
       },
       {
         path: "order-history",

@@ -1,51 +1,40 @@
 import { Menu, Transition } from "@headlessui/react";
 
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { CiSettings } from "react-icons/ci";
 import { GoMail } from "react-icons/go";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoLogInOutline } from "react-icons/io5";
-import { PiUserCircleFill } from "react-icons/pi";
-import { TbLogin } from "react-icons/tb";
+import { LiaUserSolid } from "react-icons/lia";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectCurrentUser } from "../../Redux/features/auth/authSlice";
+import { clearCart } from "../../Redux/features/cart/cartSlice";
+import { clearWishlist } from "../../Redux/features/wishlist/wishlistSlice";
 
 const DashboardDropdown = () => {
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearWishlist());
+    dispatch(clearCart());
     navigate("/sign-in");
   };
   return (
     <Menu as="div" className="relative inline-block text-left ">
       <Menu.Button>
         {user?.email && (
-          <div
-            onClick={() => setIsOpen(!isOpen)}
-            className="relative rounded-full top-[4px] group hover:border-green-500 md:hover:border-gray-300 flex gap-2 justify-center items-center border-[1px] border-gray-300"
-          >
+          <div className=" relative rounded-full z-10 top-[3.5px]  border-[2px] border-primary/50">
             <img
               src={
-                user.profilePhoto
+                user?.profilePhoto
                   ? user?.profilePhoto
-                  : "https://i.ibb.co/PmWMF1j/user.png"
+                  : "https://d1c9wriao5k55q.cloudfront.net/assets/images/anonymous-user.png"
               }
-              alt={user?.name}
-              className="size-10 rounded-full "
+              alt=""
+              className="size-8 rounded-full"
             />
-            <div className="absolute flex md:hidden top-[2px] right-[-1px] w-2 h-2 rounded-full bg-green-500" />
-            <p className="md:flex hidden font-semibold text-sm text-[#333333] ">
-              {user?.name?.slice(0, 10)}.
-            </p>
-            {isOpen ? (
-              <IoIosArrowUp className="ml-1 text-gray-600 md:flex hidden " />
-            ) : (
-              <IoIosArrowDown className="ml-1 text-gray-600 md:flex hidden " />
-            )}
           </div>
         )}
       </Menu.Button>
@@ -59,19 +48,24 @@ const DashboardDropdown = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2  min-w-[270px] max-w-[300px] origin-top-right divide-y divide-gray-100 z-50  rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2  min-w-[250px] max-w-[300px] origin-top-right divide-y divide-gray-100 z-50  rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
           <div
             className="py-1 border-b border-gray-200 dark:border-gray-600"
             role="none"
           >
-            <p className="px-4 pt-2 mb-1 font-normal text-gray-500 dark:text-gray-500">
+            <p className="px-5 pt-2 mb-1 font-normal text-gray-500 dark:text-gray-500">
               Signed in as:
             </p>
-            <a className="flex px-3 py-2 text-sm items-center font-semibold text-gray-700 border-l-2 border-transparent hover:border-primary  hover:text-primary ">
+            <a className="flex px-4 pb-2 text-sm items-center font-semibold text-gray-700">
               <span className="mr-2">
-                <PiUserCircleFill className="text-lg" />
+                <LiaUserSolid className="text-lg" />
               </span>
-              {user ? user.email : "unknown user"}
+              <p>
+                {user &&
+                  user?.email.split("@")[0].slice(0, 2) +
+                    "*".repeat(user?.email.split("@")[0].length - 2)}
+              </p>
+              <p>@{user && user?.email.split("@")[1]}</p>
             </a>
           </div>
           {user ? (
@@ -106,14 +100,18 @@ const DashboardDropdown = () => {
               </div>
             </>
           ) : (
-            <Link to={"/login"}>
-              <button className="flex px-4 py-2 text-sm text-gray-700 border-l-2 border-transparent  rounded-bl-md hover:border-primary  hover:text-primary">
-                <span className="mr-2">
-                  <TbLogin className="text-[15px]" />
-                </span>
-                Login
-              </button>
-            </Link>
+            <div className="max-h-[90vh] overflow-y-auto py-4">
+              <Link to={"/sign-in"}>
+                <button className="flex px-4 hover:bg-primary/10 w-full py-4 text-sm text-gray-700 border-l-2 border-transparent  hover:border-primary  hover:text-primary font-semibold">
+                  Sign in
+                </button>
+              </Link>
+              <Link to={"/sign-up"}>
+                <button className="flex px-4 hover:bg-primary/10 w-full py-4 text-sm text-gray-700 border-l-2 border-transparent  hover:border-primary  hover:text-primary font-semibold">
+                  Register
+                </button>
+              </Link>
+            </div>
           )}
         </Menu.Items>
       </Transition>

@@ -41,7 +41,7 @@ export default function AntTable(props: any) {
   return (
     <Table
       loading={loading}
-      rowKey={rowKey ? rowKey : "uuid"}
+      rowKey={rowKey ? rowKey : "id"}
       rowSelection={selectRow ? rowSelection : undefined}
       dataSource={data || []}
       columns={columns}
@@ -60,7 +60,6 @@ export default function AntTable(props: any) {
                 setCurrentPage(1);
               },
               showQuickJumper: false,
-              // showQuickJumper: true,
             }
           : false
       }

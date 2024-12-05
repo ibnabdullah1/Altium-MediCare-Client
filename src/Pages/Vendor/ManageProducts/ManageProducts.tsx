@@ -1,12 +1,12 @@
 import { Dropdown } from "antd";
 import { HiDotsVertical } from "react-icons/hi";
 import { toast } from "react-toastify";
-import AntTable from "../../Components/Table/AntTable";
-import { useGetAllShopQuery } from "../../Redux/features/shop/shopApi";
-import { formatDate } from "../../utils/formatDate";
+import AntTable from "../../../Components/Table/AntTable";
+import { useVendorAllProductsQuery } from "../../../Redux/features/product/productApi";
+import { formatDate } from "../../../utils/formatDate";
 
-const ManageShops = () => {
-  const { data, error, isLoading } = useGetAllShopQuery(undefined);
+const ManageProducts = () => {
+  const { data, error, isLoading } = useVendorAllProductsQuery(undefined);
 
   if (error) {
     toast.error(error.data?.message || error.message);
@@ -27,14 +27,14 @@ const ManageShops = () => {
 
   const columns = [
     {
-      title: "Logo",
-      dataIndex: "logo",
-      key: "logo",
-      render: (logo: string) => (
+      title: "Thumbnail",
+      dataIndex: "thumbnail",
+      key: "thumbnail",
+      render: (thumbnail: string) => (
         <img
-          src={logo}
-          alt="Shop Logo"
-          className="w-12 h-12 object-cover rounded-full border"
+          src={thumbnail}
+          alt="Product Thumbnail"
+          className="w-20 h-12 object-cover rounded-md"
         />
       ),
     },
@@ -45,10 +45,40 @@ const ManageShops = () => {
       render: (name: string) => <p className="font-semibold">{name}</p>,
     },
     {
-      title: "Product Count",
-      dataIndex: "products",
-      key: "products",
-      render: (products: any[]) => <p>{products?.length || 0}</p>,
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (price: number) => <p>${price.toFixed(2)}</p>,
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+      render: (category: string) => <p>{category}</p>,
+    },
+    {
+      title: "Inventory",
+      dataIndex: "inventory",
+      key: "inventory",
+      render: (inventory: number) => <p>{inventory}</p>,
+    },
+    {
+      title: "Shop",
+      dataIndex: "shop",
+      key: "shop",
+      render: (shop: any) => <p>{shop?.name}</p>,
+    },
+    {
+      title: "Reviews",
+      dataIndex: "reviews",
+      key: "reviews",
+      render: (reviews: any[]) => <p>{reviews?.length || 0}</p>,
+    },
+    {
+      title: "Orders",
+      dataIndex: "OrderProduct",
+      key: "orders",
+      render: (OrderProduct: any[]) => <p>{OrderProduct?.length || 0}</p>,
     },
     {
       title: "Created At",
@@ -107,4 +137,4 @@ const ManageShops = () => {
   );
 };
 
-export default ManageShops;
+export default ManageProducts;

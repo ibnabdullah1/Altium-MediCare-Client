@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCreateShopMutation } from "../../Redux/features/shop/shopApi";
+import { useCreateShopMutation } from "../../../Redux/features/shop/shopApi";
 
 const CreateShop = () => {
   const [loading, setLoading] = useState(false);

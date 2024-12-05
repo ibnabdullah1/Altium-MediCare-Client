@@ -7,6 +7,8 @@ import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout, selectCurrentUser } from "../Redux/features/auth/authSlice";
+import { clearCart } from "../Redux/features/cart/cartSlice";
+import { clearWishlist } from "../Redux/features/wishlist/wishlistSlice";
 
 const MenuDropdown = () => {
   const user = useSelector(selectCurrentUser);
@@ -14,6 +16,8 @@ const MenuDropdown = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearWishlist());
+    dispatch(clearCart());
     navigate("/sign-in");
   };
 

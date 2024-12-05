@@ -18,7 +18,7 @@ const AdminMenu = () => {
       <MenuItem
         icon={MdOutlineInventory}
         label="Manage Products"
-        address="manage-product"
+        address="manage-all-products"
       />
       <MenuItem
         icon={TbLockCog}

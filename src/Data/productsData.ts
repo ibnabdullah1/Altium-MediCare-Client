@@ -1,3 +1,5 @@
+import { Districts } from "../types/types";
+
 export const productsData = [
   {
     title: "Modern Smartwatch",
@@ -417,3 +419,302 @@ export const productCategories = [
   { label: "Craft Supplies", value: "Craft Supplies" },
   { label: "Seasonal Items", value: "Seasonal Items" },
 ];
+
+export const divisions = [
+  { id: 1, name: "Dhaka" },
+  { id: 2, name: "Chattogram" },
+  { id: 3, name: "Khulna" },
+  { id: 4, name: "Rajshahi" },
+  { id: 5, name: "Barishal" },
+  { id: 6, name: "Sylhet" },
+  { id: 7, name: "Rangpur" },
+  { id: 8, name: "Mymensingh" },
+];
+
+export const districts: Districts = {
+  Dhaka: [
+    {
+      id: 1,
+      name: "Dhaka",
+      upazilas: ["Central Dhaka", "North Dhaka", "South Dhaka"],
+    },
+    {
+      id: 2,
+      name: "Gazipur",
+      upazilas: ["Gazipur Sadar", "Kaliakoir", "Sreepur"],
+    },
+    {
+      id: 3,
+      name: "Narayanganj",
+      upazilas: ["Narayanganj Sadar", "Araihazar", "Baldhara"],
+    },
+    {
+      id: 4,
+      name: "Tangail",
+      upazilas: ["Tangail Sadar", "Madhupur", "Basail"],
+    },
+    {
+      id: 5,
+      name: "Kishoreganj",
+      upazilas: ["Kishoreganj Sadar", "Bajitpur", "Karimganj"],
+    },
+    {
+      id: 6,
+      name: "Manikganj",
+      upazilas: ["Manikganj Sadar", "Singair", "Shibalaya"],
+    },
+    {
+      id: 7,
+      name: "Madaripur",
+      upazilas: ["Madaripur Sadar", "Ranishwar", "Kalkini"],
+    },
+    {
+      id: 8,
+      name: "Munshiganj",
+      upazilas: ["Munshiganj Sadar", "Lohajang", "Sreenagar"],
+    },
+    {
+      id: 9,
+      name: "Shariatpur",
+      upazilas: ["Shariatpur Sadar", "Zanjira", "Naria"],
+    },
+    {
+      id: 10,
+      name: "Chandpur",
+      upazilas: ["Chandpur Sadar", "Haimchar", "Shahrasti"],
+    },
+  ],
+  Chattogram: [
+    {
+      id: 1,
+      name: "Chattogram",
+      upazilas: ["Chattogram Sadar", "Banderban", "Rangamati"],
+    },
+    {
+      id: 2,
+      name: "Cox's Bazar",
+      upazilas: ["Cox's Bazar Sadar", "Teknaf", "Ukhiya"],
+    },
+    {
+      id: 3,
+      name: "Cumilla",
+      upazilas: ["Cumilla Sadar", "Brahmanpara", "Laksham"],
+    },
+    {
+      id: 4,
+      name: "Feni",
+      upazilas: ["Feni Sadar", "Daganbhuiyan", "Parshuram"],
+    },
+    {
+      id: 5,
+      name: "Khagrachari",
+      upazilas: ["Khagrachari Sadar", "Dighinala", "Mahalchhari"],
+    },
+    {
+      id: 6,
+      name: "Lakshmipur",
+      upazilas: ["Lakshmipur Sadar", "Ramganj", "Ramgati"],
+    },
+    {
+      id: 7,
+      name: "Bandarban",
+      upazilas: ["Bandarban Sadar", "Ruma", "Thanchi"],
+    },
+    {
+      id: 8,
+      name: "Brahmanbaria",
+      upazilas: ["Brahmanbaria Sadar", "Nabinagar", "Bijoynagar"],
+    },
+  ],
+  Khulna: [
+    { id: 1, name: "Khulna", upazilas: ["Khulna Sadar", "Dacope", "Rupsa"] },
+    {
+      id: 2,
+      name: "Jessore",
+      upazilas: ["Jessore Sadar", "Bagherpara", "Jhikargachha"],
+    },
+    {
+      id: 3,
+      name: "Satkhira",
+      upazilas: ["Satkhira Sadar", "Kalaroa", "Debhata"],
+    },
+    {
+      id: 4,
+      name: "Bagerhat",
+      upazilas: ["Bagerhat Sadar", "Chitalmari", "Morrelganj"],
+    },
+    {
+      id: 5,
+      name: "Jashore",
+      upazilas: ["Jashore Sadar", "Chaugachha", "Keshabpur"],
+    },
+    {
+      id: 6,
+      name: "Kushtia",
+      upazilas: ["Kushtia Sadar", "Kumarkhali", "Mirpur"],
+    },
+    {
+      id: 7,
+      name: "Meherpur",
+      upazilas: ["Meherpur Sadar", "Gangni", "Mujibnagar"],
+    },
+    {
+      id: 8,
+      name: "Chuadanga",
+      upazilas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda"],
+    },
+  ],
+  Rajshahi: [
+    {
+      id: 1,
+      name: "Rajshahi",
+      upazilas: ["Rajshahi Sadar", "Bagmara", "Puthia"],
+    },
+    { id: 2, name: "Pabna", upazilas: ["Pabna Sadar", "Chatmohar", "Santhia"] },
+    {
+      id: 3,
+      name: "Naogaon",
+      upazilas: ["Naogaon Sadar", "Manda", "Raninagar"],
+    },
+    {
+      id: 4,
+      name: "Joypurhat",
+      upazilas: ["Joypurhat Sadar", "Khetlal", "Kalai"],
+    },
+    { id: 5, name: "Bogra", upazilas: ["Bogra Sadar", "Dhunat", "Sherpur"] },
+    {
+      id: 6,
+      name: "Chapainawabganj",
+      upazilas: ["Chapainawabganj Sadar", "Shibganj", "Gomostapur"],
+    },
+    {
+      id: 7,
+      name: "Sirajganj",
+      upazilas: ["Sirajganj Sadar", "Kamarkhand", "Chauhali"],
+    },
+    {
+      id: 8,
+      name: "Kushtia",
+      upazilas: ["Kushtia Sadar", "Kumarkhali", "Mirpur"],
+    },
+  ],
+  Barishal: [
+    {
+      id: 1,
+      name: "Barishal",
+      upazilas: ["Barishal Sadar", "Wazirpur", "Gournadi"],
+    },
+    {
+      id: 2,
+      name: "Bhola",
+      upazilas: ["Bhola Sadar", "Lalmohan", "Tazumuddin"],
+    },
+    {
+      id: 3,
+      name: "Patuakhali",
+      upazilas: ["Patuakhali Sadar", "Kalapara", "Bauphal"],
+    },
+    {
+      id: 4,
+      name: "Jhalokati",
+      upazilas: ["Jhalokati Sadar", "Babuganj", "Kathalia"],
+    },
+    {
+      id: 5,
+      name: "Jashore",
+      upazilas: ["Jashore Sadar", "Chaugachha", "Keshabpur"],
+    },
+    {
+      id: 6,
+      name: "Kushtia",
+      upazilas: ["Kushtia Sadar", "Kumarkhali", "Mirpur"],
+    },
+  ],
+  Sylhet: [
+    {
+      id: 1,
+      name: "Sylhet",
+      upazilas: ["Sylhet Sadar", "Jaintiapur", "Companiganj"],
+    },
+    {
+      id: 2,
+      name: "Moulvibazar",
+      upazilas: ["Moulvibazar Sadar", "Kulaura", "Barlekha"],
+    },
+    {
+      id: 3,
+      name: "Habiganj",
+      upazilas: ["Habiganj Sadar", "Chunarughat", "Lakhai"],
+    },
+    {
+      id: 4,
+      name: "Sunamganj",
+      upazilas: ["Sunamganj Sadar", "Durgapur", "Biswanath"],
+    },
+    {
+      id: 5,
+      name: "Jaintiapur",
+      upazilas: ["Jaintiapur", "Khadimnagar", "Sadar"],
+    },
+    { id: 6, name: "Kulaura", upazilas: ["Kulaura", "Bishwanath", "Barlekha"] },
+  ],
+  Rangpur: [
+    {
+      id: 1,
+      name: "Rangpur",
+      upazilas: ["Rangpur Sadar", "Pirganj", "Kurigram"],
+    },
+    {
+      id: 2,
+      name: "Dinajpur",
+      upazilas: ["Dinajpur Sadar", "Kaharole", "Birampur"],
+    },
+    {
+      id: 3,
+      name: "Thakurgaon",
+      upazilas: ["Thakurgaon Sadar", "Ranishwar", "Haripur"],
+    },
+    {
+      id: 4,
+      name: "Gaibandha",
+      upazilas: ["Gaibandha Sadar", "Sundarganj", "Palashbari"],
+    },
+    {
+      id: 5,
+      name: "Kurigram",
+      upazilas: ["Kurigram Sadar", "Nageswari", "Bhurungamari"],
+    },
+    {
+      id: 6,
+      name: "Lalmonirhat",
+      upazilas: ["Lalmonirhat Sadar", "Patgram", "Aditmari"],
+    },
+  ],
+  Mymensingh: [
+    {
+      id: 1,
+      name: "Mymensingh",
+      upazilas: ["Mymensingh Sadar", "Trishal", "Gafargaon"],
+    },
+    {
+      id: 2,
+      name: "Jamalpur",
+      upazilas: ["Jamalpur Sadar", "Islampur", "Dewanganj"],
+    },
+    {
+      id: 3,
+      name: "Netrokona",
+      upazilas: ["Netrokona Sadar", "Kenduli", "Durgapur"],
+    },
+    {
+      id: 4,
+      name: "Kishoreganj",
+      upazilas: ["Kishoreganj Sadar", "Bajitpur", "Karimganj"],
+    },
+    {
+      id: 5,
+      name: "Habiganj",
+      upazilas: ["Habiganj Sadar", "Chunarughat", "Lakhai"],
+    },
+  ],
+};

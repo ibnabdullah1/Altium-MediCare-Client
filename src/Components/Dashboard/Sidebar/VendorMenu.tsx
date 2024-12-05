@@ -1,9 +1,9 @@
 import { CiShop } from "react-icons/ci";
-import { FaRegEye } from "react-icons/fa6";
 import {
   MdOutlineAddBox,
   MdOutlineHistory,
   MdOutlineInventory,
+  MdOutlineRateReview,
 } from "react-icons/md";
 import { PiStorefront } from "react-icons/pi";
 import { TbTransactionDollar } from "react-icons/tb";
@@ -38,7 +38,11 @@ const VendorMenu = () => {
         label="Transaction History"
         address="transactions-history"
       />
-      <MenuItem icon={FaRegEye} label="Customer Reviews" address="reviews" />
+      <MenuItem
+        icon={MdOutlineRateReview}
+        label="Customer Reviews"
+        address="reviews"
+      />
     </>
   );
 };

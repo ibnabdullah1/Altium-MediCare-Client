@@ -27,7 +27,7 @@ const Notification = () => {
         onClick={() => setIsOpen(!isOpen)}
         className={`${
           isOpen ? "bg-primary/10" : "bg-gray-100"
-        } h-8 w-8 rounded-full flex justify-center items-center group hover:bg-primary/10 duration-500 cursor-pointer`}
+        } size-9 rounded-full flex justify-center items-center group hover:bg-primary/10 duration-500 cursor-pointer`}
       >
         <div className="relative">
           <IoNotificationsOutline
