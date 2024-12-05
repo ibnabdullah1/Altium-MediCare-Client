@@ -51,6 +51,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (data?.data) {
       setSelectedImageUrl(data.data.thumbnail);
+      dispatch(addResentView(data.data));
     }
   }, [data]);
 
@@ -124,10 +125,6 @@ const ProductDetails = () => {
     dispatch(addToCart(cartData));
     setQuantity(1);
   };
-
-  useEffect(() => {
-    dispatch(addResentView(product));
-  }, []);
 
   // Handle adding item to the wishlist
 

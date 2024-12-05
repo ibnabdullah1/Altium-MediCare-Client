@@ -51,7 +51,7 @@ const Weather = () => {
       }}
     >
       <div
-        className="absolute inset-0 z-0 rounded-md "
+        className="absolute inset-0 z-0 rounded-lg "
         style={{ backgroundColor: "rgba(10,154,115, 0.6)" }}
       />
       <div className="relative z-10 flex justify-between items-center">

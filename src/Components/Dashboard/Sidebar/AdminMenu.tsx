@@ -1,5 +1,6 @@
 import {
   MdOutlineCategory,
+  MdOutlineCollectionsBookmark,
   MdOutlineInventory,
   MdOutlineManageAccounts,
   MdOutlineRateReview,
@@ -29,6 +30,11 @@ const AdminMenu = () => {
         icon={MdOutlineCategory}
         label="Manage Categories"
         address="manage-categories"
+      />
+      <MenuItem
+        icon={MdOutlineCollectionsBookmark}
+        label="Recent View Products"
+        address="recent-view-products"
       />
       <MenuItem
         icon={TbTransactionDollar}

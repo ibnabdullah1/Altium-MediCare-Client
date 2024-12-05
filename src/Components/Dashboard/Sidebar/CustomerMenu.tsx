@@ -23,8 +23,8 @@ const CustomerMenu = () => {
       />
       <MenuItem
         icon={MdOutlineCollectionsBookmark}
-        label="Recent Products"
-        address="recent-products"
+        label="Recent View Products"
+        address="recent-view-products"
       />
       <MenuItem icon={BsShop} label="Followed Shops" address="followed-shops" />
     </>

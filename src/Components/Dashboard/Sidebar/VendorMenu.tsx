@@ -1,6 +1,7 @@
 import { CiShop } from "react-icons/ci";
 import {
   MdOutlineAddBox,
+  MdOutlineCollectionsBookmark,
   MdOutlineHistory,
   MdOutlineInventory,
   MdOutlineRateReview,
@@ -32,6 +33,11 @@ const VendorMenu = () => {
         icon={MdOutlineHistory}
         label="Order History"
         address="order-history"
+      />
+      <MenuItem
+        icon={MdOutlineCollectionsBookmark}
+        label="Recent View Products"
+        address="recent-view-products"
       />
       <MenuItem
         icon={TbTransactionDollar}

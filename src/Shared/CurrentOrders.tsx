@@ -1,18 +1,18 @@
-import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-import { ordersData } from "../Data/productsData";
+import { useUserOrderQuery } from "../Redux/features/order/orderApi";
+import { formatDate } from "../utils/formatDate";
+import { SHIPPING_STATUS } from "../utils/userRole";
 
 const CurrentOrders = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
+  const { data, error, isLoading } = useUserOrderQuery(undefined);
   return (
     <div className="bg-white text-secondary/80 mt-4 rounded">
       <div className="flex justify-between items-center mb-3 border-b p-6">
-        <h1 className="font-semibold">Current Reservations</h1>
+        <h1 className="font-semibold">Current Orders</h1>
         <Link
-          to={"/dashboard/managebookings"}
+          to={"order-history"}
           className="font-semibold hover:text-primary text-sm"
         >
           View All
@@ -23,16 +23,14 @@ const CurrentOrders = () => {
           <table className="w-full table-fixed">
             <thead>
               <tr className="border-b">
-                <th className="py-3 text-left text-gray-600 font-medium text-[13px] w-[120px]">
-                  Name
+                <th className="py-3 text-left text-gray-600 font-semibold text-[13px] w-[120px]">
+                  Shop Name
                 </th>
-                <th className="py-3 text-left text-gray-600 font-medium text-[13px] w-[140px]">
+
+                <th className="py-3 text-left text-gray-600 font-semibold text-[13px] w-[140px]">
                   Date/Time
                 </th>
-                <th className="py-3 text-center text-gray-600 font-medium text-[13px] w-[60px]">
-                  People
-                </th>
-                <th className="py-3 text-center text-gray-600 font-medium text-[13px]">
+                <th className="py-3 text-center text-gray-600 font-semibold text-[13px]">
                   Status
                 </th>
               </tr>
@@ -55,34 +53,36 @@ const CurrentOrders = () => {
                       </td>
                     </tr>
                   ))
-                : ordersData.map(({ user, time, guest, status, date }, i) => (
-                    <tr key={i}>
-                      <td className="py-3 text-left text-[13px] font-medium text-secondary/70">
-                        {user}
-                      </td>
-                      <td className="py-3 text-left text-secondary/40 text-[13px]">
-                        <p>{date && time && `${date} - ${time}`}</p>
-                      </td>
-                      <td className="py-3 text-center text-secondary/40 text-[13px]">
-                        {guest}
-                      </td>
-                      <td className="py-3 w-[90px] text-center text-[13px]">
-                        <span
-                          className={`${
-                            status === "Confirmed"
-                              ? "bg-green px-2 text-white"
-                              : status === "Canceled"
-                              ? "bg-red px-2 text-white"
-                              : status === "Pending"
-                              ? "bg-blue-600 px-2 text-white"
-                              : ""
-                          } py-1 text-xs rounded-full font-medium`}
-                        >
-                          {status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                : data?.data
+                    .slice(0, 6)
+                    .map(({ shop, shippingStatus, createdAt, id }: any) => (
+                      <tr key={id}>
+                        <td className="py-3 text-left text-[13px] font-medium text-secondary/70">
+                          {shop?.name}
+                        </td>
+
+                        <td className="py-3 text-left text-secondary/40 text-[13px]">
+                          <p>{formatDate(createdAt)}</p>
+                        </td>
+                        <td className="py-3 w-[90px] text-center text-[13px]">
+                          <span
+                            className={`${
+                              shippingStatus === SHIPPING_STATUS.DELIVERED
+                                ? "bg-green px-2 text-white"
+                                : shippingStatus === SHIPPING_STATUS.SHIPPED
+                                ? "bg-primary px-2 text-white"
+                                : shippingStatus === SHIPPING_STATUS.CANCELLED
+                                ? "bg-red px-2 text-white"
+                                : shippingStatus === SHIPPING_STATUS.PENDING
+                                ? "bg-blue-600 px-2 text-white"
+                                : ""
+                            } py-1 text-xs rounded-full font-medium`}
+                          >
+                            {shippingStatus}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
             </tbody>
           </table>
         </div>
