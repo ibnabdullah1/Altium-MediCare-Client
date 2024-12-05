@@ -14,11 +14,12 @@ const Checkout2 = () => {
   const [paymentMethod, setSelectPaymentMethod] = useState("CASH_ON_DELIVERY");
   const { name, email }: any = useSelector(selectCurrentUser);
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  const totalPrice = cartItems.reduce(
-    (totalPrice, item) => totalPrice + item.price,
+  const price = cartItems.reduce((price, item) => price + item.price, 0);
+  const allQuantity = cartItems.reduce(
+    (quantity, item) => quantity + item?.quantity,
     0
   );
-
+  const totalPrice = price * allQuantity;
   const handlePaymentMethodChange = (method: string) => {
     setSelectPaymentMethod(method);
   };
@@ -110,25 +111,27 @@ const Checkout2 = () => {
           <p className="text-gray-400">
             Check your items. And select a suitable shipping method.
           </p>
-          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            {cartItems.map((item): any => (
-              <div className="flex  gap-3 rounded-lg bg-white">
-                <img
-                  className="h-16 w-20 rounded-md border object-cover object-center"
-                  src={item.thumbnail}
-                  alt=""
-                />
-                <div className="flex w-full flex-col">
-                  <p className="text-lg font-semibold text-secondary/80">
-                    {item.name}
-                  </p>
-                  <p className="text-lg text-primary font-semibold">
-                    ${item.price}
-                  </p>
+          {cartItems.length > 0 && (
+            <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+              {cartItems?.map((item): any => (
+                <div className="flex  gap-3 rounded-lg bg-white">
+                  <img
+                    className="h-16 w-20 rounded-md border object-cover object-center"
+                    src={item.thumbnail}
+                    alt=""
+                  />
+                  <div className="flex w-full flex-col">
+                    <p className="text-lg font-semibold text-secondary/80">
+                      {item?.name}
+                    </p>
+                    <p className="text-lg text-primary font-semibold">
+                      ${item?.price * item.quantity}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           <p className="mt-8 text-lg font-semibold">Payment Methods</p>
           <div className="mt-5 grid gap-6">

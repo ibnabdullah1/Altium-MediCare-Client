@@ -1,8 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { clearCart } from "../../../Redux/features/cart/cartSlice";
 import { useCreateOrderMutation } from "../../../Redux/features/order/orderApi";
 import { useAddPaymentMutation } from "../../../Redux/features/payment/paymentApi";
 import { RootState } from "../../../Redux/features/store";
@@ -14,6 +15,7 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
   const [clientSecret, setClientSecret] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [addPayment] = useAddPaymentMutation();
+  const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   useEffect(() => {
     if (totalPrice > 0) {
@@ -68,7 +70,6 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
         const ordersByShop = cartItems.reduce((orders: any, item) => {
           const shopId = item.shopId;
 
-          // Initialize an order for the shopId if it doesn't exist
           if (!orders[shopId]) {
             orders[shopId] = {
               shopId: shopId,
@@ -76,14 +77,12 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
               products: [],
               totalAmount: 0,
               payment: {
-                transactionId: paymentIntent.id,
                 method: "STRIPE",
                 status: "PAID",
               },
             };
           }
 
-          // Add item to the corresponding order
           orders[shopId].products.push({
             productId: item.id,
             quantity: item.quantity,
@@ -91,26 +90,25 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
             shopId: item.shopId,
           });
 
-          // Accumulate the totalAmount for the shop's order
           orders[shopId].totalAmount += item.price * item.quantity;
 
           return orders;
         }, {});
-        for (const order of Object.values(ordersByShop)) {
-          try {
-            setIsProcessing(true);
-            // Sending order to the server
-            const res = await createOrder(order).unwrap();
-            if (res.status) {
-              setIsProcessing(false);
-              toast.success(res.message);
-            }
-          } catch (err: any) {
+        const orders = Object.values(ordersByShop);
+        try {
+          setIsProcessing(true);
+          // Sending all orders to the server
+          const res = await createOrder({ orders }).unwrap();
+          if (res.status) {
             setIsProcessing(false);
-            toast.error(
-              err?.data?.message || err?.message || "Something went wrong!"
-            );
+            dispatch(clearCart());
+            toast.success(res.message);
           }
+        } catch (err: any) {
+          setIsProcessing(false);
+          toast.error(
+            err?.data?.message || err?.message || "Something went wrong!"
+          );
         }
       }
     } catch (err) {
@@ -167,8 +165,12 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
         </div>
         <button
           type="submit"
-          className="bg-primary px-8 mt-4 w-full transform font-semibold duration-100 hover:bg-[rgb(10,154,115,0.8)] py-3 text-white uppercase"
-          disabled={isProcessing}
+          className={`${
+            totalPrice < 1
+              ? "bg-gray-200 text-gray-300 cursor-not-allowed"
+              : "bg-primary hover:bg-[rgb(10,154,115,0.8)]"
+          } w-full mt-3 px-8 transform font-semibold duration-100 rounded-lg  py-3 text-white font-raleway uppercase`}
+          disabled={isProcessing || totalPrice < 1}
         >
           {isProcessing ? (
             <TbFidgetSpinner className="animate-spin m-auto text-2xl" />

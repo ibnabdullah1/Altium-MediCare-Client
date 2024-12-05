@@ -13,6 +13,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addToCart } from "../../Redux/features/cart/cartSlice";
 import { useGetSingleProductsQuery } from "../../Redux/features/product/productApi";
+import { addResentView } from "../../Redux/features/product/productSlice";
 import { RootState } from "../../Redux/features/store";
 import {
   addWishlist,
@@ -97,6 +98,16 @@ const ProductDetails = () => {
           0
         )
       : 0;
+  const ratings = product.reviews || [];
+  const totalRatings = ratings.length;
+
+  // Calculate average rating
+  const averageRating = totalRatings
+    ? (
+        ratings.reduce((acc: number, r: any) => acc + r.rating, 0) /
+        totalRatings
+      ).toFixed(1)
+    : 0;
 
   const soldPercentage = Math.min((productSold / product.inventory) * 100, 100);
   // Handle adding item to the cart
@@ -113,6 +124,10 @@ const ProductDetails = () => {
     dispatch(addToCart(cartData));
     setQuantity(1);
   };
+
+  useEffect(() => {
+    dispatch(addResentView(product));
+  }, []);
 
   // Handle adding item to the wishlist
 
@@ -191,12 +206,15 @@ const ProductDetails = () => {
                     />
                   </svg>
                 }
-                initialRating={4.5}
+                initialRating={+averageRating}
                 readonly
               />
             </p>
             <p className="font-semibold text-primary">
-              4.7 <span className="text-gray-400 font-normal">(234)</span>
+              {averageRating}{" "}
+              <span className="text-gray-400 font-normal">
+                ({product?.reviews?.length})
+              </span>
             </p>{" "}
             |
             <p className="text-gray-400">
@@ -254,9 +272,7 @@ const ProductDetails = () => {
           </div>
           <p className="text-xs font-semibold text-secondary/80 mt-1">
             Available only :{" "}
-            <span className="font-mono">
-              {product?.inventory - productSold}
-            </span>
+            <span className="font-mono">{product?.inventory}</span>
           </p>
           <p className="text-secondary/80 my-2 text-sm font-semibold">
             Quantity:
@@ -266,17 +282,28 @@ const ProductDetails = () => {
               <div className="border-r h-full flex items-center border w-fit px-3 text-sm py-[6px] rounded-full gap-3">
                 <RxMinus
                   className="hover:text-primary"
-                  onClick={() => setQuantity(quantity - 1)}
+                  onClick={() =>
+                    setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 0))
+                  } // Ensure quantity doesn't go below 1
                 />
                 {quantity}
                 <RxPlus
                   className="hover:text-primary"
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() =>
+                    setQuantity((prevQuantity) => prevQuantity + 1)
+                  } // Increment normally
                 />
               </div>
+
               <button
+                disabled={quantity === 0 || product?.inventory === 0}
                 onClick={() => handleAddToCart()}
-                className="bg-primary text-xs text-white px-3 py-2 font-semibold rounded hover:bg-primary/80 duration-150 flex items-center gap-1"
+                className={` text-xs  px-3 py-2 font-semibold rounded  duration-150 flex items-center gap-1 
+    ${
+      quantity === 0 || product?.inventory === 0
+        ? "bg-gray-100 text-gray-300 cursor-not-allowed"
+        : "bg-primary hover:bg-primary/80 text-white"
+    }`}
               >
                 <IoCartOutline className="text-base" />
                 Add To Cart
@@ -292,8 +319,14 @@ const ProductDetails = () => {
                 </button>
               ) : (
                 <button
+                  disabled={quantity === 0 || product?.inventory === 0}
                   onClick={() => handleAddToWishlist()}
-                  className="bg-primary/10 text-primary hover:bg-primary/15 p-2 rounded-full"
+                  className={`p-2 rounded-full font-semibold   duration-150 flex items-center gap-1 
+                    ${
+                      quantity === 0 || product?.inventory === 0
+                        ? "bg-gray-100 text-gray-300 cursor-not-allowed"
+                        : "bg-primary/10 text-primary hover:bg-primary/15"
+                    }`}
                 >
                   <RiHeart3Line />
                 </button>

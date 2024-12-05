@@ -40,8 +40,6 @@ const ShopDetails = () => {
       ? shop.followers.some((follow: any) => follow?.email === user.email)
       : false;
 
-  console.log(isFollow);
-
   return (
     <div className="fixed-w">
       {/* Profile */}
@@ -157,7 +155,7 @@ const ShopDetails = () => {
         </div>
       </div>
       {/* Shop Products */}
-      <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {shop?.products?.map((product: any) => (
           <ProductCard key={product.id} product={product} />
         ))}

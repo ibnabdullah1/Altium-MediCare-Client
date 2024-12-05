@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { clearCart } from "../../../Redux/features/cart/cartSlice";
 import { useCreateOrderMutation } from "../../../Redux/features/order/orderApi";
 import { RootState } from "../../../Redux/features/store";
 
@@ -18,6 +19,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
 }) => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const [createOrder] = useCreateOrderMutation();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: any) => {
     setLoading(true);
@@ -31,7 +33,6 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
     const ordersByShop = cartItems.reduce((orders: any, item) => {
       const shopId = item.shopId;
 
-      // Initialize an order for the shopId if it doesn't exist
       if (!orders[shopId]) {
         orders[shopId] = {
           shopId: shopId,
@@ -45,7 +46,6 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
         };
       }
 
-      // Add item to the corresponding order
       orders[shopId].products.push({
         productId: item.id,
         quantity: item.quantity,
@@ -53,28 +53,27 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
         shopId: item.shopId,
       });
 
-      // Accumulate the totalAmount for the shop's order
       orders[shopId].totalAmount += item.price * item.quantity;
 
       return orders;
     }, {});
 
-    // Iterate over the orders grouped by shopId
-    for (const order of Object.values(ordersByShop)) {
-      try {
-        setLoading(true);
-        // Sending order to the server
-        const res = await createOrder(order).unwrap();
-        if (res.status) {
-          setLoading(false);
-          toast.success(res.message);
-        }
-      } catch (err: any) {
+    const orders = Object.values(ordersByShop);
+
+    try {
+      setLoading(true);
+      // Sending all orders to the server
+      const res = await createOrder({ orders }).unwrap();
+      if (res.status) {
         setLoading(false);
-        toast.error(
-          err?.data?.message || err?.message || "Something went wrong!"
-        );
+        toast.success(res.message);
+        dispatch(clearCart());
       }
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(
+        err?.data?.message || err?.message || "Something went wrong!"
+      );
     }
   };
 
@@ -187,19 +186,25 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
           </div>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-gray-900">Shipping</p>
-            <p className="font-semibold text-gray-900">$50.00</p>
+            <p className="font-semibold text-gray-900">
+              ${totalPrice > 0 ? "50.00" : "00.00"}
+            </p>
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between">
           <p className="text-sm font-medium text-gray-900">Total</p>
           <p className="text-2xl font-semibold text-gray-900">
-            ${totalPrice + 50}.00
+            ${totalPrice}.00
           </p>
         </div>
         <button
           type="submit"
-          className="bg-primary w-full mt-3 px-8 transform font-semibold duration-100 hover:bg-[rgb(10,154,115,0.8)] py-3 text-white font-raleway uppercase"
-          disabled={loading}
+          className={`${
+            totalPrice < 1
+              ? "bg-gray-200 text-gray-300 cursor-not-allowed"
+              : "bg-primary hover:bg-[rgb(10,154,115,0.8)]"
+          } w-full mt-3 px-8 transform font-semibold duration-100 rounded-lg  py-3 text-white font-raleway uppercase`}
+          disabled={loading || totalPrice < 1}
         >
           {loading ? (
             <TbFidgetSpinner className="animate-spin m-auto text-2xl" />

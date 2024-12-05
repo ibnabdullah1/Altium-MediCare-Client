@@ -1,6 +1,7 @@
 import { RxCross2, RxMinus, RxPlus } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import {
   removeFromCart,
@@ -49,8 +50,10 @@ const MyShoppingCart = () => {
 
   const handleQuantityDown = (newQuantity: number, id: string) => {
     const item = cartItems.find((item) => item.id === id);
-    if (item) {
+    if (item && newQuantity >= 1) {
       handleQuantityChange(id, newQuantity, item.stockQuantity);
+    } else {
+      toast.error("Quantity cannot be less than 1.");
     }
   };
 
