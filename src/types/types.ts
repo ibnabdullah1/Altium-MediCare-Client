@@ -32,3 +32,13 @@ export enum ShippingStatus {
   DELIVERED = "DELIVERED",
   CANCELLED = "CANCELLED",
 }
+export enum UserRole {
+  ADMIN = "ADMIN",
+  VENDOR = "VENDOR",
+  CUSTOMER = "CUSTOMER",
+}
+export enum UserStatus {
+  ACTIVE = "ACTIVE",
+  BLOCKED = "BLOCKED",
+  DELETED = "DELETED",
+}

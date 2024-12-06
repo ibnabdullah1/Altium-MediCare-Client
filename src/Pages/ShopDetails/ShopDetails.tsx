@@ -10,6 +10,7 @@ import {
   useFollowShopMutation,
   useGetSingleShopQuery,
 } from "../../Redux/features/shop/shopApi";
+import LoaderSpinner from "../../Shared/LoaderSpinner";
 import { formatDate } from "../../utils/formatDate";
 
 const ShopDetails = () => {
@@ -19,7 +20,7 @@ const ShopDetails = () => {
 
   const { data, isLoading } = useGetSingleShopQuery(id);
   if (isLoading) {
-    return;
+    return <LoaderSpinner />;
   }
   const shop = data?.data;
   const handleFollowShop = async () => {

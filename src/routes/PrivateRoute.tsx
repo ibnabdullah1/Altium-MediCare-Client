@@ -1,44 +1,65 @@
+import React, { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import {
+  logout,
   selectCurrentUser,
   setProfile,
   setRole,
 } from "../Redux/features/auth/authSlice";
 import { useAppDispatch } from "../Redux/features/hooks";
 import { useMyProfileDataQuery } from "../Redux/features/user/userApi";
+import LoaderSpinner from "../Shared/LoaderSpinner";
+import { UserStatus } from "../types/types";
 
-const PrivateRoute = ({ children }: any) => {
+interface PrivateRouteProps {
+  children: ReactNode;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const user = useSelector(selectCurrentUser);
+
   const { data, error, isLoading } = useMyProfileDataQuery(undefined);
 
-  // Handle loading and error outside of the hook calls
-  if (isLoading) {
-    return;
+  // Redirect unauthenticated users
+  if (!user) {
+    return <Navigate to="/sign-in" state={{ from: location }} replace />;
   }
 
+  // Show loading state
+  if (isLoading) {
+    return <LoaderSpinner />;
+  }
+
+  // Handle errors from the API query
   if (error) {
     return <p>Error loading profile: {error.message}</p>;
   }
 
-  // Dispatch profile and role data after profile is fetched
+  // Handle blocked or invalid user status
+  if (data?.data?.status === UserStatus.BLOCKED || !data?.data?.status) {
+    dispatch(logout());
+    return <Navigate to="/sign-in" state={{ from: location }} replace />;
+  }
 
+  // Update Redux state with profile and role data
   if (data?.data?.profilePhoto) {
-    dispatch(setProfile(data?.data?.profilePhoto));
+    dispatch(setProfile(data.data.profilePhoto));
   }
+
   if (data?.data?.role) {
-    dispatch(setRole(data?.data?.role));
+    dispatch(setRole(data.data.role));
   }
 
-  // If user is authenticated, render children
+  // Render children if the user is authenticated
   if (user?.email) {
-    return children;
+    return <>{children}</>;
   }
 
-  // Redirect to login if not authenticated
-  return <Navigate to={"/login"} state={{ from: location }} replace />;
+  // Fallback to the login page
+  return <Navigate to="/sign-in" state={{ from: location }} replace />;
 };
 
 export default PrivateRoute;

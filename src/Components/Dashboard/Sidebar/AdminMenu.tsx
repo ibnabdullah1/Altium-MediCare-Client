@@ -1,5 +1,4 @@
 import {
-  MdOutlineCategory,
   MdOutlineCollectionsBookmark,
   MdOutlineInventory,
   MdOutlineManageAccounts,
@@ -26,11 +25,11 @@ const AdminMenu = () => {
         label="Blacklist Shops"
         address="blacklist-shops"
       />
-      <MenuItem
+      {/* <MenuItem
         icon={MdOutlineCategory}
         label="Manage Categories"
         address="manage-categories"
-      />
+      /> */}
       <MenuItem
         icon={MdOutlineCollectionsBookmark}
         label="Recent View Products"

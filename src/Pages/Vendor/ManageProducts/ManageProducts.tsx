@@ -56,7 +56,9 @@ const ManageProducts = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (name: string) => <p className="font-semibold">{name}</p>,
+      render: (name: string) => (
+        <p className="font-semibold w-[100px]">{name}</p>
+      ),
     },
     {
       title: "Price",
@@ -80,7 +82,7 @@ const ManageProducts = () => {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
-      render: (shop: any) => <p>{shop?.name}</p>,
+      render: (shop: any) => <p className="w-[100px]">{shop?.name}</p>,
     },
     {
       title: "Reviews",
@@ -98,7 +100,9 @@ const ManageProducts = () => {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: string) => <p>{formatDate(createdAt)}</p>,
+      render: (createdAt: string) => (
+        <p className="w-[130px]">{formatDate(createdAt)}</p>
+      ),
     },
     {
       title: "Action",
@@ -144,7 +148,7 @@ const ManageProducts = () => {
   return (
     <>
       <div className="min-h-screen bg-gray-50 py-10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <h1 className="text-3xl font-bold text-center mb-8">Manage Shops</h1>
           <div className="bg-white border rounded-md">
             <AntTable

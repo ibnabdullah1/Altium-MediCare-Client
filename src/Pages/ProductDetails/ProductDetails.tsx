@@ -19,6 +19,7 @@ import {
   addWishlist,
   removeWishlist,
 } from "../../Redux/features/wishlist/wishlistSlice";
+import LoaderSpinner from "../../Shared/LoaderSpinner";
 import ProductDescription from "./ProductDescription";
 import ProductReview from "./ProductReview";
 
@@ -82,7 +83,7 @@ const ProductDetails = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoaderSpinner />;
   }
 
   if (error || !data?.data) {

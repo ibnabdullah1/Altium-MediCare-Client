@@ -48,9 +48,9 @@ const Sidebar = ({ isActive }: any) => {
             <MenuItem
               icon={TbHelpSquareRounded}
               label="Help Line"
-              address="/"
+              address="help-line"
             />
-            <MenuItem icon={TbSettings} label="Settings" address="/" />
+            <MenuItem icon={TbSettings} label="Settings" address="settings" />
           </nav>
         </div>
       </div>

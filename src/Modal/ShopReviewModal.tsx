@@ -86,7 +86,7 @@ const ShopReviewModal = ({
       title="Submit Your Review"
       style={{ top: 20 }}
       open={updateShopReviewModal}
-      onOk={() => setUpdateShopReviewModal(false)}
+      onOk={() => navigate("/dashboard/order-history")}
       onCancel={() => setUpdateShopReviewModal(false)}
       footer={null}
     >

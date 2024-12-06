@@ -109,20 +109,20 @@ const ManageOrders = () => {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
-      render: (customer: any) => <p>{customer?.name}</p>,
+      render: (customer: any) => <p className="w-[100px]">{customer?.name}</p>,
     },
 
     {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
-      render: (shop: any) => <p>{shop?.name}</p>,
+      render: (shop: any) => <p className="w-[100px]">{shop?.name}</p>,
     },
     {
       title: "Total Amount",
       dataIndex: "totalAmount",
       key: "totalAmount",
-      render: (totalAmount: any) => <p>${totalAmount}</p>,
+      render: (totalAmount: any) => <p className="w-[100px]">${totalAmount}</p>,
     },
     {
       title: "Payment Status",
@@ -182,13 +182,15 @@ const ManageOrders = () => {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: string) => <p>{formatDate(createdAt)}</p>,
+      render: (createdAt: string) => (
+        <p className="w-[130px]">{formatDate(createdAt)}</p>
+      ),
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Manage Orders</h1>
         <div className="bg-white border rounded-md">
           <AntTable

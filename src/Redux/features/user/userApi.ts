@@ -39,6 +39,35 @@ const authApi = baseApi.injectEndpoints({
       },
       providesTags: ["follow-shop"],
     }),
+    getAllUser: builder.query({
+      query: () => {
+        return {
+          url: `user`,
+          method: "GET",
+        };
+      },
+      providesTags: ["users"],
+    }),
+    updateUserRole: builder.mutation({
+      query: (user) => {
+        return {
+          url: `user/update-role/${user.userId}`,
+          method: "PUT",
+          body: { role: user.role },
+        };
+      },
+      invalidatesTags: ["users"],
+    }),
+    toggleUserStatus: builder.mutation({
+      query: (user) => {
+        return {
+          url: `user/update-status/${user.userId}`,
+          method: "PUT",
+          body: { isSuspended: user.isSuspended },
+        };
+      },
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -47,4 +76,7 @@ export const {
   useMyProfileDataQuery,
   useProfileUpdateMutation,
   useGetFollowedShopsQuery,
+  useUpdateUserRoleMutation,
+  useGetAllUserQuery,
+  useToggleUserStatusMutation,
 } = authApi;

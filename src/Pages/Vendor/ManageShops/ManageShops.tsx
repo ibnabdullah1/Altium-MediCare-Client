@@ -55,7 +55,7 @@ const ManageShops = () => {
         <img
           src={logo}
           alt="Shop Logo"
-          className="w-12 h-12 object-cover rounded-full border"
+          className="w-12 h-12 max-w-none object-cover rounded-full border"
         />
       ),
     },
@@ -63,25 +63,33 @@ const ManageShops = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      render: (name: string) => <p className="font-semibold">{name}</p>,
+      render: (name: string) => (
+        <p className="font-semibold w-[100px]">{name}</p>
+      ),
     },
     {
       title: "Total Product",
       dataIndex: "products",
       key: "products",
-      render: (products: any[]) => <p>{products?.length || 0}</p>,
+      render: (products: any[]) => (
+        <p className="w-[100px]">{products?.length || 0}</p>
+      ),
     },
     {
       title: "Total Order",
       dataIndex: "orders",
       key: "orders",
-      render: (orders: any[]) => <p>{orders?.length || 0}</p>,
+      render: (orders: any[]) => (
+        <p className="w-[100px]">{orders?.length || 0}</p>
+      ),
     },
     {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: string) => <p>{formatDate(createdAt)}</p>,
+      render: (createdAt: string) => (
+        <p className="w-[130px]">{formatDate(createdAt)}</p>
+      ),
     },
     {
       title: "Action",
@@ -126,7 +134,7 @@ const ManageShops = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Manage Shops</h1>
         <div className="bg-white border rounded-md">
           <AntTable

@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import DashboardNavbar from "../Components/Dashboard/DashboardNavbar";
 import Sidebar from "../Components/Dashboard/Sidebar/Sidebar";
+import { toggleSidebar } from "../Redux/features/sidebar/sidebarSlice";
+import { RootState } from "../Redux/features/store";
 const DashboardLayout = () => {
-  const [isActive, setActive] = useState(true);
+  const isActive = useSelector((state: RootState) => state.sidebar.isActive);
+  const dispatch = useDispatch();
 
   const handleToggle = () => {
-    setActive((prev) => !prev);
+    dispatch(toggleSidebar());
   };
   return (
     <div className="relative min-h-screen  lg:flex font-questrial gap-5">

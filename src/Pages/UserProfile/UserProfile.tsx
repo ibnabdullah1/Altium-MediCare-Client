@@ -56,7 +56,7 @@ const Profile = () => {
             alt="Mountain"
           />
         </div>
-        <div className="absolute -top-14 md:top-10 left-0 right-0 mx-auto bg-[#575757] w-[110px] h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] rounded-full flex items-center justify-center">
+        <div className="absolute top-28 md:top-20 lg:top-10 left-0 right-0 mx-auto bg-[#575757] w-[110px] h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] rounded-full flex items-center justify-center">
           <div className="relative w-[100px] h-[100px] md:w-[140px] md:h-[140px] lg:w-[190px] lg:h-[190px] overflow-hidden">
             <img
               className="w-full h-full object-cover object-center overflow-hidden rounded-full"

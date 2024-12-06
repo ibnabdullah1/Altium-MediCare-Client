@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MainLayout from "../Layout/MainLayout";
 import ManageAllProducts from "../Pages/Admin/ManageAllProducts";
+import ManageAllUsers from "../Pages/Admin/ManageAllUsers";
 import Checkout from "../Pages/Customer/Checkout/Checkout";
 import FollowedShops from "../Pages/Customer/FollowedShops/FollowedShops";
 import MyShoppingCart from "../Pages/Customer/MyShoppingCart/MyShoppingCart";
@@ -22,37 +23,34 @@ import ManageOrders from "../Pages/Vendor/ManageOrders/ManageOrders";
 import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
 import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
 import ProductTranslation from "../Pages/Vendor/ProductTranslation/ProductTranslation";
+
+import AdminPrivateRoute from "./AdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
 
-const router = createBrowserRouter([
+const routes = [
+  // Public Routes
   {
     path: "/",
     element: <MainLayout />,
     errorElement: <NotFoundPage />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/product-details/:id",
-        element: <ProductDetails />,
-      },
+      { path: "/", element: <Home /> },
+      { path: "/product-details/:id", element: <ProductDetails /> },
       {
         path: "/shop/:id",
-        element: <ShopDetails />,
+        element: (
+          <PrivateRoute>
+            <ShopDetails />
+          </PrivateRoute>
+        ),
       },
-      {
-        path: "/sign-in",
-        element: <SignIn />,
-      },
-      {
-        path: "/sign-up",
-        element: <SignUp />,
-      },
+      { path: "/sign-in", element: <SignIn /> },
+      { path: "/sign-up", element: <SignUp /> },
     ],
   },
+
+  // Dashboard Routes
   {
     path: "/dashboard",
     element: (
@@ -62,74 +60,69 @@ const router = createBrowserRouter([
     ),
     errorElement: <NotFoundPage />,
     children: [
-      {
-        path: "",
-        element: <Dashboard />,
-      },
-      {
-        path: "recent-view-products",
-        element: <RecentView />,
-      },
-      {
-        path: "user-profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-        ),
-      },
-      // Admin routes
+      { path: "", element: <Dashboard /> },
+      { path: "recent-view-products", element: <RecentView /> },
+      { path: "user-profile", element: <Profile /> },
+      { path: "help-line", element: <h2>Coming Soon help-line page</h2> },
+      { path: "settings", element: <h2>Coming Soon settings page</h2> },
+
+      // Admin Routes
       {
         path: "manage-users",
-        element: <Dashboard />,
+        element: (
+          <AdminPrivateRoute>
+            <ManageAllUsers />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "manage-all-products",
-        element: <ManageAllProducts />,
+        element: (
+          <AdminPrivateRoute>
+            <ManageAllProducts />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "blacklist-shops",
-        element: <Dashboard />,
-      },
-      {
-        path: "manage-categories",
-        element: <Dashboard />,
+        element: (
+          <AdminPrivateRoute>
+            <h2>Coming Soon</h2>
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "transactions",
-        element: <Dashboard />,
+        element: (
+          <AdminPrivateRoute>
+            <h2>Coming Soon transactions content</h2>
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "review-activities",
-        element: <Dashboard />,
+        element: (
+          <AdminPrivateRoute>
+            <h2>Coming Soon review-activitie content</h2>
+          </AdminPrivateRoute>
+        ),
       },
 
       // User Routes
-      {
-        path: "my-cart",
-        element: <MyShoppingCart />,
-      },
-      {
-        path: "wishlist",
-        element: <MyWishlist />,
-      },
-      {
-        path: "checkout",
-        element: <Checkout />,
-      },
-      {
-        path: "order-history",
-        element: <OrderHistory />,
-      },
-      {
-        path: "followed-shops",
-        element: <FollowedShops />,
-      },
+      { path: "my-cart", element: <MyShoppingCart /> },
+      { path: "wishlist", element: <MyWishlist /> },
+      { path: "checkout", element: <Checkout /> },
+      { path: "order-history", element: <OrderHistory /> },
+      { path: "followed-shops", element: <FollowedShops /> },
 
       // Vendor Routes
       {
         path: "create-shop",
-        element: <CreateShop />,
+        element: (
+          <VendorPrivateRoute>
+            <CreateShop />
+          </VendorPrivateRoute>
+        ),
       },
       {
         path: "add-product",
@@ -141,14 +134,22 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-shops",
-        element: <ManageShops />,
+        element: (
+          <VendorPrivateRoute>
+            <ManageShops />
+          </VendorPrivateRoute>
+        ),
       },
       {
         path: "manage-products",
-        element: <ManageProducts />,
+        element: (
+          <VendorPrivateRoute>
+            <ManageProducts />
+          </VendorPrivateRoute>
+        ),
       },
       {
-        path: "Manage-Orders",
+        path: "manage-orders",
         element: (
           <VendorPrivateRoute>
             <ManageOrders />
@@ -165,10 +166,16 @@ const router = createBrowserRouter([
       },
       {
         path: "reviews",
-        element: <Dashboard />,
+        element: (
+          <VendorPrivateRoute>
+            <h2>Coming Soon reviews content</h2>
+          </VendorPrivateRoute>
+        ),
       },
     ],
   },
-]);
+];
+
+const router = createBrowserRouter(routes);
 
 export default router;

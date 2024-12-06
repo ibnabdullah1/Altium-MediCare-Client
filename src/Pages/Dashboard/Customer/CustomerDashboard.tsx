@@ -5,6 +5,7 @@ import { SiCodechef } from "react-icons/si";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { useGetCustomerDashboardStatsQuery } from "../../../Redux/features/dashboard/dashboardApi";
 import CurrentOrders from "../../../Shared/CurrentOrders";
+import LoaderSpinner from "../../../Shared/LoaderSpinner";
 import OrdersChart from "../../../Shared/OrdersChart";
 import RecentViewProducts from "../../../Shared/RecentViewProducts";
 import SalesAnalytics from "../../../Shared/SalesAnalytics ";
@@ -15,7 +16,7 @@ const CustomerDashboard = () => {
     useGetCustomerDashboardStatsQuery(undefined);
 
   if (isLoading) {
-    return; // Add a proper loading spinner or skeleton
+    return <LoaderSpinner />;
   }
 
   if (error) {
@@ -112,7 +113,7 @@ const CustomerDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <div>
           <CurrentOrders />
           <OrdersChart />

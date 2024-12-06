@@ -1,10 +1,10 @@
+import { Tag } from "antd";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetVendorAllOrdersQuery } from "../Redux/features/order/orderApi";
 import { formatDate } from "../utils/formatDate";
-import { SHIPPING_STATUS } from "../utils/userRole";
 
 const VendorCurrentOrders = () => {
   const { data, error, isLoading } = useGetVendorAllOrdersQuery(undefined);
@@ -87,21 +87,21 @@ const VendorCurrentOrders = () => {
                             <p>{formatDate(createdAt)}</p>
                           </td>
                           <td className="py-3 w-[90px] text-center text-[13px]">
-                            <span
-                              className={`${
-                                shippingStatus === SHIPPING_STATUS.DELIVERED
-                                  ? "bg-green/10 px-2 text-green"
-                                  : shippingStatus === SHIPPING_STATUS.SHIPPED
-                                  ? "bg-primary/10 px-2 text-primary"
-                                  : shippingStatus === SHIPPING_STATUS.CANCELLED
-                                  ? "bg-red/10 px-2 text-red"
-                                  : shippingStatus === SHIPPING_STATUS.PENDING
-                                  ? "bg-blue-100 px-2 text-blue-600"
-                                  : ""
-                              } py-1 text-xs px-2 rounded font-medium`}
+                            <Tag
+                              color={
+                                shippingStatus === "PENDING"
+                                  ? "processing"
+                                  : shippingStatus === "SHIPPED"
+                                  ? "blue"
+                                  : shippingStatus === "DELIVERED"
+                                  ? "green"
+                                  : shippingStatus === "CANCELLED"
+                                  ? "red"
+                                  : "gray"
+                              }
                             >
                               {shippingStatus}
-                            </span>
+                            </Tag>
                           </td>
                         </tr>
                       )

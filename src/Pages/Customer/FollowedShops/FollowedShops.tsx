@@ -36,7 +36,7 @@ const FollowedShops = () => {
       key: "name",
       render: (_: any, record: any) => (
         <Link to={`/shop/${record.id}`}>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-[170px]">
             <img
               src={record.logo}
               alt="Shop Logo"
@@ -52,14 +52,18 @@ const FollowedShops = () => {
       title: "Total Product",
       dataIndex: "products",
       key: "products",
-      render: (products: any[]) => <p>{products?.length || 0}</p>,
+      render: (products: any[]) => (
+        <p className="w-[100px]">{products?.length || 0}</p>
+      ),
     },
 
     {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (createdAt: string) => <p>{formatDate(createdAt)}</p>,
+      render: (createdAt: string) => (
+        <p className="w-[130px]">{formatDate(createdAt)}</p>
+      ),
     },
     {
       title: "Unfollow",
@@ -78,7 +82,7 @@ const FollowedShops = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Followed Shops</h1>
         <div className="bg-white border rounded-md">
           <AntTable

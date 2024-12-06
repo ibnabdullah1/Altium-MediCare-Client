@@ -33,38 +33,52 @@ const ProductTranslation = () => {
       title: "Customer",
       dataIndex: "customer",
       key: "customer",
-      render: (customer: any) => <p>{customer?.name || "Unknown"}</p>,
+      render: (customer: any) => (
+        <p className="w-[100px]">{customer?.name || "Unknown"}</p>
+      ),
     },
     {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
-      render: (shop: any) => <p>{shop?.name || "Unknown"}</p>,
+      render: (shop: any) => (
+        <p className="w-[100px]">{shop?.name || "Unknown"}</p>
+      ),
     },
     {
       title: "Total Amount",
       dataIndex: "totalAmount",
       key: "totalAmount",
-      render: (totalAmount: number) => <p>${totalAmount.toLocaleString()}</p>,
+      render: (totalAmount: number) => (
+        <p className="w-[100px]">${totalAmount.toLocaleString()}</p>
+      ),
     },
     {
       title: "Payment Method",
       dataIndex: "payment",
       key: "payment",
-      render: (payment: any) => <p>{payment?.method || "N/A"}</p>,
+      render: (payment: any) => (
+        <p className="w-[120px]">
+          {payment?.method === "CASH_ON_DELIVERY"
+            ? "COD"
+            : payment?.method || "N/A"}
+        </p>
+      ),
     },
     {
       title: "Payment Status",
       dataIndex: "paymentStatus",
       key: "paymentStatus",
       render: (status: string) => (
-        <Tag color={status === "PAID" ? "green" : "red"}>{status}</Tag>
+        <div className="w-[120px]">
+          <Tag color={status === "PAID" ? "green" : "red"}>{status}</Tag>
+        </div>
       ),
     },
   ];
   return (
     <div className="min-h-screen bg-gray-50 py-10">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">
           Order Transition
         </h1>

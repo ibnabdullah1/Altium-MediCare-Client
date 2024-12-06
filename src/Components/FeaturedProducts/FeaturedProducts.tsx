@@ -1,11 +1,12 @@
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import offerImage2 from "../../assets/offerAds2.png";
 import { useAllProductsQuery } from "../../Redux/features/product/productApi";
+import LoaderSpinner from "../../Shared/LoaderSpinner";
 import ProductCard from "../Products/ProductCard";
 const FeaturedProducts = () => {
   const { data, isLoading } = useAllProductsQuery(undefined);
   if (isLoading) {
-    return;
+    return <LoaderSpinner />;
   }
 
   return (

@@ -23,13 +23,13 @@ const RecentViewProducts = () => {
           <table className="w-full table-fixed">
             <thead>
               <tr className="border-b">
-                <th className="py-3 text-left text-gray-600 w-[240px] text-xs font-semibold">
+                <th className="py-3 text-left text-gray-600 w-[180px] text-xs font-semibold">
                   Item Name
                 </th>
-                <th className="py-3 text-left text-gray-600 text-xs font-semibold">
+                <th className="py-3 text-left w-[100px] text-gray-600 text-xs font-semibold">
                   Item Price
                 </th>
-                <th className="py-3 text-left text-gray-600 text-xs font-semibold">
+                <th className="py-3 text-left w-[100px] text-gray-600 text-xs font-semibold">
                   Total Quantity
                 </th>
               </tr>

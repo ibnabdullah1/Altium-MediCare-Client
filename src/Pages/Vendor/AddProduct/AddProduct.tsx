@@ -124,7 +124,7 @@ const AddProduct = () => {
       </div>
       <form className="w-full px-5 lg:px-10 mt-4" onSubmit={handleSubmit}>
         {/* Name and Price */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="py-2">
             <label htmlFor="name" className="block text-sm">
               Name <span className="text-red font-bold">*</span>
@@ -153,7 +153,7 @@ const AddProduct = () => {
         </div>
 
         {/* Inventory and Category */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="py-2">
             <label htmlFor="inventory" className="block text-sm">
               Inventory <span className="text-red font-bold">*</span>
@@ -184,7 +184,7 @@ const AddProduct = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Shop Selection */}
           <div className="py-2">
             <label htmlFor="shop" className="block text-sm">
@@ -226,7 +226,7 @@ const AddProduct = () => {
         </div>
 
         {/* Weight and Dimensions */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="py-2">
             <label htmlFor="weight" className="block text-sm">
               Weight (kg) (Optional)
