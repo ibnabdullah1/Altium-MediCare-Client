@@ -129,7 +129,7 @@ const SignUp = () => {
                   required
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="form_input"
+                  className="form_input bg-white"
                 >
                   <option value="CUSTOMER">Customer</option>
                   <option value="VENDOR">Vendor</option>

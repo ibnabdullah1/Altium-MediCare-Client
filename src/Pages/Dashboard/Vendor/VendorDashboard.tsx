@@ -1,17 +1,22 @@
+import { Alert } from "antd";
 import CountUp from "react-countup";
 import { HiMiniUser } from "react-icons/hi2";
 import { MdLocalOffer } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
 import { TbShoppingCartCheck } from "react-icons/tb";
+import { Link } from "react-router-dom";
 import { useGetVendorDashboardStatsQuery } from "../../../Redux/features/dashboard/dashboardApi";
+import CurrentOrders from "../../../Shared/CurrentOrders";
+import OrdersChart from "../../../Shared/OrdersChart";
+import RecentViewProducts from "../../../Shared/RecentViewProducts";
+import SalesAnalytics from "../../../Shared/SalesAnalytics ";
 import Weather from "../../../Shared/Weather";
-
 const VendorDashboard = () => {
   // Fetch the data using the hook
   const { data, error, isLoading } = useGetVendorDashboardStatsQuery(undefined);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return;
   }
 
   if (error) {
@@ -20,6 +25,8 @@ const VendorDashboard = () => {
 
   // Extract the stats from the API response
   const {
+    isShop,
+    message,
     totalProducts,
     totalRevenue,
     totalOrders,
@@ -29,6 +36,25 @@ const VendorDashboard = () => {
 
   return (
     <div>
+      {!isShop && (
+        <Alert
+          message={
+            <>
+              {message}{" "}
+              <Link
+                to="create-shop"
+                className="text-blue-600 hover:underline font-semibold"
+              >
+                Create Shop
+              </Link>
+            </>
+          }
+          type="warning"
+          showIcon
+          closable
+        />
+      )}
+
       <Weather />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-lg">
@@ -111,6 +137,16 @@ const VendorDashboard = () => {
               <SiCodechef className="text-lg" />
             </div>
           </div>
+        </div>
+      </div>
+      <div className="grid lg:grid-cols-2 gap-4">
+        <div>
+          <CurrentOrders />
+          <OrdersChart />
+        </div>
+        <div>
+          <SalesAnalytics />
+          <RecentViewProducts />
         </div>
       </div>
     </div>
