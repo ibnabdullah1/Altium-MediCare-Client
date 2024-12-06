@@ -10,7 +10,7 @@ const VendorPrivateRoute = ({ children }: any) => {
   const { data, error, isLoading } = useMyProfileDataQuery(undefined);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return;
   }
 
   if (error) {

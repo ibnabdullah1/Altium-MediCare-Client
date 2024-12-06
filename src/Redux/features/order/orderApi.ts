@@ -10,6 +10,17 @@ const orderAPi = baseApi.injectEndpoints({
           body: orderInfo,
         };
       },
+      invalidatesTags: ["order"],
+    }),
+    updateOrderStatus: builder.mutation({
+      query: (statusInfo) => {
+        return {
+          url: `order/update-status/${statusInfo.orderId}`,
+          method: "PUT",
+          body: statusInfo,
+        };
+      },
+      invalidatesTags: ["order"],
     }),
     userOrder: builder.query({
       query: () => {
@@ -18,8 +29,23 @@ const orderAPi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["order"],
+    }),
+    getVendorAllOrders: builder.query({
+      query: () => {
+        return {
+          url: "order/vendor",
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
     }),
   }),
 });
 
-export const { useCreateOrderMutation, useUserOrderQuery } = orderAPi;
+export const {
+  useCreateOrderMutation,
+  useUserOrderQuery,
+  useGetVendorAllOrdersQuery,
+  useUpdateOrderStatusMutation,
+} = orderAPi;

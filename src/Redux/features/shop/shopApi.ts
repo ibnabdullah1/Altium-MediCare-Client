@@ -39,6 +39,16 @@ const shopApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["shop_id", "shop"],
     }),
+    updateShop: builder.mutation({
+      query: ({ formData, id }) => {
+        return {
+          url: `shop/${id}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["shop_id", "shop"],
+    }),
   }),
 });
 
@@ -47,4 +57,5 @@ export const {
   useGetAllShopQuery,
   useGetSingleShopQuery,
   useFollowShopMutation,
+  useUpdateShopMutation,
 } = shopApi;

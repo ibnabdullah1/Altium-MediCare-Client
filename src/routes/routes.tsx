@@ -16,6 +16,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Profile from "../Pages/UserProfile/UserProfile";
 import AddProduct from "../Pages/Vendor/AddProduct/AddProduct";
 import CreateShop from "../Pages/Vendor/CreateShop/CreateShop";
+import ManageOrders from "../Pages/Vendor/ManageOrders/ManageOrders";
 import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
 import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
 import PrivateRoute from "./PrivateRoute";
@@ -68,7 +69,12 @@ const router = createBrowserRouter([
       },
       {
         path: "user-profile",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Profile />
+          </PrivateRoute>
+        ),
       },
       // Admin routes
       {
@@ -140,8 +146,8 @@ const router = createBrowserRouter([
         element: <ManageProducts />,
       },
       {
-        path: "order-history",
-        element: <Dashboard />,
+        path: "Manage-Orders",
+        element: <ManageOrders />,
       },
       {
         path: "transactions-history",

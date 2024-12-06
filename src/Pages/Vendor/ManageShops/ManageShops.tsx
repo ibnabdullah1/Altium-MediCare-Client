@@ -1,29 +1,43 @@
-import { Dropdown } from "antd";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import { Dropdown, Modal } from "antd";
+import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { toast } from "react-toastify";
 import AntTable from "../../../Components/Table/AntTable";
+import ShopUpdateModal from "../../../Modal/ShopUpdateModal";
 import { useGetAllShopQuery } from "../../../Redux/features/shop/shopApi";
 import { formatDate } from "../../../utils/formatDate";
 
 const ManageShops = () => {
   const { data, error, isLoading } = useGetAllShopQuery(undefined);
+  const [updateShopModal, setUpdateShopModal] = useState(false);
+
+  const [shopData, setShopData] = useState<any>(null);
 
   if (error) {
     toast.error(error.data?.message || error.message);
     return null;
   }
 
+  const { confirm } = Modal;
   const shops = data?.data || [];
 
-  const handleUpdate = (id: string) => {
-    console.log(`Update shop with id: ${id}`);
-    // Logic for updating the shop
+  // Handle delete action
+  const handleDelete = (id: string) => {
+    confirm({
+      title: "Do you want to delete this shop?",
+      icon: <ExclamationCircleFilled />,
+      content: "Deleting this shop will remove all its data permanently.",
+      onOk() {
+        console.log("Shop deleted:", id);
+      },
+      onCancel() {
+        console.log("Delete action canceled.");
+      },
+    });
   };
 
-  const handleDelete = (id: string) => {
-    console.log(`Delete shop with id: ${id}`);
-    // Logic for deleting the shop
-  };
+  // Handle update action
 
   const columns = [
     {
@@ -72,13 +86,20 @@ const ManageShops = () => {
               {
                 key: "1",
                 label: (
-                  <div onClick={() => handleDelete(record.id)}>Delete</div>
+                  <div onClick={() => handleDelete(record?.id)}>Delete</div>
                 ),
               },
               {
                 key: "2",
                 label: (
-                  <div onClick={() => handleUpdate(record.id)}>Update</div>
+                  <div
+                    onClick={() => {
+                      setShopData(record);
+                      setUpdateShopModal(true);
+                    }}
+                  >
+                    Update
+                  </div>
                 ),
               },
             ],
@@ -105,10 +126,17 @@ const ManageShops = () => {
             loading={isLoading}
             columns={columns}
             data={shops}
-            isPaginate={true} // Enable pagination if needed
+            isPaginate={true}
           />
         </div>
       </div>
+      {updateShopModal && (
+        <ShopUpdateModal
+          updateShopModal={updateShopModal}
+          setUpdateShopModal={setUpdateShopModal}
+          shopData={shopData}
+        />
+      )}
     </div>
   );
 };

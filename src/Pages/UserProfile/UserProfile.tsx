@@ -1,14 +1,17 @@
-import { useState } from "react";
 import { IoCameraOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../Redux/features/auth/authSlice";
+import { toast } from "react-toastify";
+import {
+  selectCurrentUser,
+  setProfile,
+} from "../../Redux/features/auth/authSlice";
 import { useAppDispatch } from "../../Redux/features/hooks";
+import { useProfileUpdateMutation } from "../../Redux/features/user/userApi";
 
 const Profile = () => {
   const user = useSelector(selectCurrentUser);
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
-
+  const [profileUpdate] = useProfileUpdateMutation();
   const userPosts = [];
 
   // Fetch user data (you need to define `userData`)
@@ -18,21 +21,25 @@ const Profile = () => {
   const followings = userData?.data?.following.length || 0;
   const totalPost = userPosts?.length || 0;
 
-  const handleChangeProfile = async (e: any) => {
-    e.preventDefault();
-
-    // const { data } = await imageUpload(file);
-    // const payload = {
-    //   image: data.display_url,
-    //   user: userData?.data,
-    // };
-
-    // const res: any = await updateProfile(payload);
-
-    // if (res.success) {
-    //   toast.success(res.message);
-    //   dispatch(setProfile(data.display_url)); // Update the Redux store with the new profile image
-    // }
+  const handleChangeProfile = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      toast.error("No file selected");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res: any = await profileUpdate(formData).unwrap();
+      if (res.success) {
+        toast.success(res.message);
+        dispatch(setProfile(res.data.profilePhoto));
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating your profile");
+    }
   };
 
   return (
@@ -65,6 +72,7 @@ const Profile = () => {
                   type="file"
                   name="profile"
                   id="profile"
+                  accept="image/*"
                   className="sr-only"
                   onChange={handleChangeProfile}
                 />

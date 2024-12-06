@@ -20,3 +20,15 @@ export interface FormData {
   subDistrict: string;
   phone: string;
 }
+export enum PaymentStatus {
+  PENDING = "PENDING",
+  PAID = "PAID",
+  FAILED = "FAILED",
+}
+
+export enum ShippingStatus {
+  PENDING = "PENDING",
+  SHIPPED = "SHIPPED",
+  DELIVERED = "DELIVERED",
+  CANCELLED = "CANCELLED",
+}

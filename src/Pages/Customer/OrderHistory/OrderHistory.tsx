@@ -38,8 +38,15 @@ const OrderHistory = () => {
       render: (status: string) => (
         <span
           className={`px-2 py-1 rounded ${
-            status === "PAID" ? "bg-green/10 text-green" : "bg-red/10 text-red"
-          }`}
+            status === "PAID"
+              ? "bg-green/10 text-green"
+              : status === "PENDING"
+              ? "bg-primary/10 text-primary"
+              : status === "FAILED"
+              ? "bg-red/10 text-red"
+              : ""
+          }
+            `}
         >
           {status}
         </span>
@@ -52,9 +59,15 @@ const OrderHistory = () => {
       render: (status: string) => (
         <span
           className={`px-2 py-1 rounded ${
-            status === "DELIVERED"
-              ? "bg-green-100 text-green-700"
-              : "bg-yellow-100 text-yellow-700"
+            status === "PENDING"
+              ? "bg-primary/10 text-primary"
+              : status === "SHIPPED"
+              ? "bg-blue-100 text-blue-800"
+              : status === "DELIVERED"
+              ? "bg-green/10 text-green"
+              : status === "CANCELLED"
+              ? "bg-red/10 text-red"
+              : "bg-gray-200 text-gray-600"
           }`}
         >
           {status}

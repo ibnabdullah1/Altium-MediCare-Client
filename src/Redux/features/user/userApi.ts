@@ -18,8 +18,23 @@ const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["user_profile"],
+    }),
+    profileUpdate: builder.mutation({
+      query: (profileInfo) => {
+        return {
+          url: `user/update-profile`,
+          method: "PUT",
+          body: profileInfo,
+        };
+      },
+      invalidatesTags: ["user_profile"],
     }),
   }),
 });
 
-export const { useCreateUserMutation, useMyProfileDataQuery } = authApi;
+export const {
+  useCreateUserMutation,
+  useMyProfileDataQuery,
+  useProfileUpdateMutation,
+} = authApi;

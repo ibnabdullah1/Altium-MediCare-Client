@@ -10,7 +10,18 @@ const dashboardAPi = baseApi.injectEndpoints({
         };
       },
     }),
+    getVendorDashboardStats: builder.query({
+      query: () => {
+        return {
+          url: "dashboard/vendor-stats",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetCustomerDashboardStatsQuery } = dashboardAPi;
+export const {
+  useGetCustomerDashboardStatsQuery,
+  useGetVendorDashboardStatsQuery,
+} = dashboardAPi;

@@ -12,21 +12,24 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("CUSTOMER"); // Default role
+  const [fileName, setFileName] = useState<string | null>(null);
   const [createUser] = useCreateUserMutation();
   const navigate = useNavigate();
-  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setFileName(event.target.files[0].name);
     }
   };
+
   const handleRegister = async (e: any) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const password = form.password.value;
     const image = form.image.files[0];
+
     // Clear previous errors
     setPasswordError("");
     setEmailError("");
@@ -45,8 +48,10 @@ const SignUp = () => {
         user: {
           name,
           email,
+          role, // Include the selected role
         },
       };
+
       const formData = new FormData();
       // Append data
       formData.append("data", JSON.stringify(userInfo));
@@ -59,19 +64,19 @@ const SignUp = () => {
       const res = await createUser(formData).unwrap();
       if (res.success) {
         navigate("/sign-in");
-        setLoading(false);
         toast.success(res.message);
       }
     } catch (error: any) {
-      setLoading(false);
       toast.error(
-        error.data.message || error?.message || "Something went wrong!"
+        error.data?.message || error?.message || "Something went wrong!"
       );
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
     <>
-      {" "}
       <LinkBanner activeLocation={"Sign Up"} group={"Account"} />
       <div className="flex justify-center items-center py-20">
         <div className="flex flex-col md:min-w-[500px] max-w-xl p-6 rounded-md sm:p-10 bg-white text-gray-900">
@@ -79,9 +84,9 @@ const SignUp = () => {
             <h1 className="heading">
               Register <br /> Your Account
             </h1>
-            <p className=" text-gray-600">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit
-              aliquid, Non distinctio vel iste.
+            <p className="text-gray-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
+              aliquid, non distinctio vel iste.
             </p>
           </div>
           <form
@@ -112,17 +117,25 @@ const SignUp = () => {
                   className="form_input"
                 />
                 {emailError && (
-                  <p
-                    style={{
-                      color: "red",
-                      fontSize: "0.8rem",
-                      marginTop: "0.5rem",
-                    }}
-                  >
-                    {emailError}
-                  </p>
+                  <p className="text-red-500 text-sm mt-2">{emailError}</p>
                 )}
               </div>
+
+              {/* Role Selection */}
+              <div>
+                <select
+                  name="role"
+                  id="role"
+                  required
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="form_input"
+                >
+                  <option value="CUSTOMER">Customer</option>
+                  <option value="VENDOR">Vendor</option>
+                </select>
+              </div>
+
               <div>
                 <div className="mb-4 relative">
                   <input
@@ -132,25 +145,17 @@ const SignUp = () => {
                     id="password"
                     required
                     placeholder="Password"
-                    className="form_input relative "
+                    className="form_input relative"
                   />
                   <span
-                    className="absolute top-[40%] right-4 bottom-[45%] cursor-pointer opacity-50"
+                    className="absolute top-[40%] right-4 cursor-pointer opacity-50"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                   </span>
                 </div>
                 {passwordError && (
-                  <p
-                    style={{
-                      color: "red",
-                      fontSize: "0.8rem",
-                      marginTop: "0.5rem",
-                    }}
-                  >
-                    {passwordError}
-                  </p>
+                  <p className="text-red-500 text-sm mt-2">{passwordError}</p>
                 )}
               </div>
 
@@ -160,7 +165,6 @@ const SignUp = () => {
                   id="image"
                   name="image"
                   accept="image/*"
-                  required
                   className="hidden"
                   onChange={handleFileChange}
                 />
@@ -171,7 +175,7 @@ const SignUp = () => {
                   {fileName ? (
                     <span className="font-medium">{fileName}</span>
                   ) : (
-                    "Click to upload a profile"
+                    "Click to upload a profile picture"
                   )}
                 </label>
                 <p className="text-sm text-gray-500 mt-2">
@@ -180,36 +184,10 @@ const SignUp = () => {
               </div>
             </div>
 
-            {/* Marketing Consent */}
-            <div className="flex items-start gap-2">
-              <input
-                className="relative top-1"
-                type="checkbox"
-                id="marketingConsent"
-              />
-              <label htmlFor="marketingConsent">
-                I consent to Herboil processing my personal data in order to
-                send personalized marketing material in accordance with the
-                consent form and the privacy policy.
-              </label>
-            </div>
-
-            {/* Privacy Policy Consent */}
-            <div className="flex items-start gap-2">
-              <input
-                className="relative top-1"
-                type="checkbox"
-                id="privacyConsent"
-              />
-              <label htmlFor="privacyConsent">
-                By clicking "create account", I consent to the privacy policy.
-              </label>
-            </div>
-
             <div>
               <button
                 type="submit"
-                className="bg-primary px-8 transform font-semibold duration-100 hover:bg-[rgb(10,154,115,0.8)] py-3 text-white font-raleway uppercase"
+                className="bg-primary px-8 py-3 text-white font-semibold uppercase"
                 disabled={loading}
               >
                 {loading ? (
@@ -221,14 +199,13 @@ const SignUp = () => {
             </div>
 
             <p className="mt-3 text-gray-600">
-              ALREADY HAVE AN ACCOUNT ?{" "}
+              Already have an account?{" "}
               <Link
                 to="/sign-in"
-                className="hover:underline font-semibold hover:text-primary text-primary uppercase"
+                className="hover:underline font-semibold text-primary"
               >
                 Sign In
               </Link>
-              .
             </p>
           </form>
         </div>

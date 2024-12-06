@@ -1,3 +1,5 @@
+import { Input } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
@@ -55,9 +57,6 @@ const CreateShop = () => {
       };
       // Append data
       formData.append("data", JSON.stringify(shopInfo));
-      formData.append("name", name);
-      formData.append("description", description);
-
       if (image) {
         formData.append("file", image);
       }
@@ -98,7 +97,7 @@ const CreateShop = () => {
                 Shop Name
                 <span className="text-red font-bold">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 name="name"
                 id="name"
@@ -112,13 +111,13 @@ const CreateShop = () => {
                 Description/Product Details
                 <span className="text-red font-bold">*</span>
               </label>
-              <textarea
+              <TextArea
                 id="description"
                 rows={6}
                 name="description"
                 className={inputClasses}
                 placeholder="Details"
-              ></textarea>
+              ></TextArea>
             </div>
 
             <div className="w-full border rounded border-dashed border-primary p-4 text-center bg-white">

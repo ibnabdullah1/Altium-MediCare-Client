@@ -38,10 +38,15 @@ const authSlice = createSlice({
         state.user.profilePhoto = action.payload;
       }
     },
+    setRole: (state, action) => {
+      if (state.user) {
+        state.user.role = action.payload;
+      }
+    },
   },
 });
 
-export const { setUser, logout, setProfile } = authSlice.actions;
+export const { setUser, logout, setProfile, setRole } = authSlice.actions;
 export default authSlice.reducer;
 
 export const useCurrentToken = (state: RootState) => state.auth.token;

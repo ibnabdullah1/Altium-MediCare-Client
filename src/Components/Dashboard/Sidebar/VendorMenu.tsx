@@ -31,8 +31,8 @@ const VendorMenu = () => {
       />
       <MenuItem
         icon={MdOutlineHistory}
-        label="Order History"
-        address="order-history"
+        label="Manage Orders"
+        address="manage-orders"
       />
       <MenuItem
         icon={MdOutlineCollectionsBookmark}
