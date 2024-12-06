@@ -10,12 +10,14 @@ interface CashOnDeliveryProps {
   totalPrice: number;
   name: string;
   email: string;
+  setUpdateShopReviewModal: any;
 }
 
 const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
   totalPrice,
   name,
   email,
+  setUpdateShopReviewModal,
 }) => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const [createOrder] = useCreateOrderMutation();
@@ -66,6 +68,7 @@ const CashOnDelivery: React.FC<CashOnDeliveryProps> = ({
       const res = await createOrder({ orders }).unwrap();
       if (res.status) {
         setLoading(false);
+        setUpdateShopReviewModal(true);
         toast.success(res.message);
         dispatch(clearCart());
       }

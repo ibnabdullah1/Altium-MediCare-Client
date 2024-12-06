@@ -15,7 +15,7 @@ const CustomerDashboard = () => {
     useGetCustomerDashboardStatsQuery(undefined);
 
   if (isLoading) {
-    return <p>Loading...</p>; // Add a proper loading spinner or skeleton
+    return; // Add a proper loading spinner or skeleton
   }
 
   if (error) {

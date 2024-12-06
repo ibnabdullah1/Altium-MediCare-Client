@@ -12,7 +12,18 @@ const reviewApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["product_id"],
     }),
+    createShopReview: builder.mutation({
+      query: (reviewInfo) => {
+        return {
+          url: "shop/review/create",
+          method: "POST",
+          body: reviewInfo,
+        };
+      },
+      invalidatesTags: ["shop_id", "shop"],
+    }),
   }),
 });
 
-export const { useCreateReviewMutation } = reviewApi;
+export const { useCreateReviewMutation, useCreateShopReviewMutation } =
+  reviewApi;

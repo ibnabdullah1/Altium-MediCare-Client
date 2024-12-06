@@ -65,7 +65,7 @@ const CreateShop = () => {
       const res = await createShop(formData).unwrap();
       if (res.status) {
         toast.success(res.message);
-        navigate("/dashboard");
+        navigate("/dashboard/manage-shops");
         setLoading(false);
       }
     } catch (error: any) {

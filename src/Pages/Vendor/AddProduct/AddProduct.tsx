@@ -270,6 +270,7 @@ const AddProduct = () => {
         <CustomFileInput
           handleImageChange={handleImageChange}
           imagePreviews={imagePreviews}
+          setImagePreviews={setImagePreviews}
         />
 
         {/* Buttons */}

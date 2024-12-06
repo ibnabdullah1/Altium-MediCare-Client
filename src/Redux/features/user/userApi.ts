@@ -30,6 +30,15 @@ const authApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["user_profile"],
     }),
+    getFollowedShops: builder.query({
+      query: () => {
+        return {
+          url: `user/customer/followed-shops`,
+          method: "GET",
+        };
+      },
+      providesTags: ["follow-shop"],
+    }),
   }),
 });
 
@@ -37,4 +46,5 @@ export const {
   useCreateUserMutation,
   useMyProfileDataQuery,
   useProfileUpdateMutation,
+  useGetFollowedShopsQuery,
 } = authApi;

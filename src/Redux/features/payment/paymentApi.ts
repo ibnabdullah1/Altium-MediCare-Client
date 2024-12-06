@@ -11,7 +11,16 @@ const paymentApi = baseApi.injectEndpoints({
         };
       },
     }),
+    productTranslation: builder.query({
+      query: () => {
+        return {
+          url: "payment/vendor/product-transition",
+          method: "GET",
+        };
+      },
+      providesTags: ["transition"],
+    }),
   }),
 });
 
-export const { useAddPaymentMutation } = paymentApi;
+export const { useAddPaymentMutation, useProductTranslationQuery } = paymentApi;

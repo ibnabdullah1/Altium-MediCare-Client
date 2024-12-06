@@ -1,3 +1,5 @@
+import { IoCloseCircleOutline } from "react-icons/io5";
+
 const CustomFileInput = ({
   handleImageChange,
   imagePreviews,
@@ -51,10 +53,11 @@ const CustomFileInput = ({
                 src={imageDataUrl}
               />
               <button
+                type="button"
                 onClick={() => handleImageRemove(imageDataUrl)}
-                className="absolute top-0 right-0 bg-red-500 text-red rounded-full text-xs p-1"
+                className="absolute top-0 right-0 bg-red-500 text-red rounded-full p-1"
               >
-                X
+                <IoCloseCircleOutline />
               </button>
             </div>
           ))}

@@ -6,10 +6,10 @@ import { SiCodechef } from "react-icons/si";
 import { TbShoppingCartCheck } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useGetVendorDashboardStatsQuery } from "../../../Redux/features/dashboard/dashboardApi";
-import CurrentOrders from "../../../Shared/CurrentOrders";
 import OrdersChart from "../../../Shared/OrdersChart";
 import RecentViewProducts from "../../../Shared/RecentViewProducts";
 import SalesAnalytics from "../../../Shared/SalesAnalytics ";
+import VendorCurrentOrders from "../../../Shared/VendorCurrentOrders";
 import Weather from "../../../Shared/Weather";
 const VendorDashboard = () => {
   // Fetch the data using the hook
@@ -128,7 +128,7 @@ const VendorDashboard = () => {
                   <CountUp end={totalReviews || 0} duration={2} />
                 </p>
                 <p className="text-green text-xs font-normal">
-                  {averageRating ? `${averageRating.toFixed(2)}%` : "No Rating"}
+                  {averageRating ? `${averageRating.toFixed(2)}%` : "0.00%"}
                 </p>
               </div>
             </div>
@@ -141,7 +141,7 @@ const VendorDashboard = () => {
       </div>
       <div className="grid lg:grid-cols-2 gap-4">
         <div>
-          <CurrentOrders />
+          <VendorCurrentOrders />
           <OrdersChart />
         </div>
         <div>

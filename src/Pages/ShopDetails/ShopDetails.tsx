@@ -17,6 +17,7 @@ const ShopDetails = () => {
   const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [followShop] = useFollowShopMutation();
+
   const { data, error, isLoading } = useGetSingleShopQuery(id);
   if (isLoading) {
     return <p>Loading...</p>;
@@ -55,14 +56,15 @@ const ShopDetails = () => {
           className="col-span-3 min-h-[250px] rounded-lg flex items-end "
         >
           <div className="rounded-lg bg-white w-full p-4 flex gap-4">
-            <div>
+            <div className="relative -top-10 w-24 h-24 flex justify-center">
               <img
                 src={shop?.logo}
                 alt=""
                 style={{ boxShadow: "0 0 5px 2px rgba(0, 0, 0, 0.02)" }}
-                className="size-[100px] relative -top-10 object-cover rounded-full bg-white"
+                className="w-24 h-24 max-w-none object-cover rounded-full bg-white"
               />
             </div>
+
             <div className="w-full">
               <div className="flex justify-between items-start w-full">
                 <h3 className="font-semibold text-lg font-roboto">

@@ -12,7 +12,7 @@ const RecentViewProducts = () => {
       <div className="flex justify-between items-center mb-3 border-b p-6">
         <h2 className="font-semibold">Recent View Products</h2>
         <Link
-          to={"recent-view-products"}
+          to={"/dashboard/recent-view-products"}
           className="font-semibold hover:text-primary text-sm"
         >
           View All

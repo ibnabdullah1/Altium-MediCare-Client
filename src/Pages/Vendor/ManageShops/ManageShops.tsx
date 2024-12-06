@@ -5,11 +5,15 @@ import { HiDotsVertical } from "react-icons/hi";
 import { toast } from "react-toastify";
 import AntTable from "../../../Components/Table/AntTable";
 import ShopUpdateModal from "../../../Modal/ShopUpdateModal";
-import { useGetAllShopQuery } from "../../../Redux/features/shop/shopApi";
+import {
+  useDeleteShopMutation,
+  useGetAllShopQuery,
+} from "../../../Redux/features/shop/shopApi";
 import { formatDate } from "../../../utils/formatDate";
 
 const ManageShops = () => {
   const { data, error, isLoading } = useGetAllShopQuery(undefined);
+  const [deleteShop] = useDeleteShopMutation();
   const [updateShopModal, setUpdateShopModal] = useState(false);
 
   const [shopData, setShopData] = useState<any>(null);
@@ -28,8 +32,11 @@ const ManageShops = () => {
       title: "Do you want to delete this shop?",
       icon: <ExclamationCircleFilled />,
       content: "Deleting this shop will remove all its data permanently.",
-      onOk() {
-        console.log("Shop deleted:", id);
+      async onOk() {
+        const res = await deleteShop(id).unwrap();
+        if (res.success) {
+          toast.success(res.message);
+        }
       },
       onCancel() {
         console.log("Delete action canceled.");

@@ -2,6 +2,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import ShopReviewModal from "../../../Modal/ShopReviewModal";
 import { selectCurrentUser } from "../../../Redux/features/auth/authSlice";
 import { RootState } from "../../../Redux/features/store";
 import CashOnDelivery from "./CashOnDelivery";
@@ -12,6 +13,7 @@ const stripePromise = loadStripe(
 
 const Checkout2 = () => {
   const [paymentMethod, setSelectPaymentMethod] = useState("CASH_ON_DELIVERY");
+  const [updateShopReviewModal, setUpdateShopReviewModal] = useState(false);
   const { name, email }: any = useSelector(selectCurrentUser);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const price = cartItems.reduce((price, item) => price + item.price, 0);
@@ -185,13 +187,27 @@ const Checkout2 = () => {
         </div>
         {paymentMethod === "STRIPE" && (
           <Elements stripe={stripePromise}>
-            <StripePayment totalPrice={totalPrice} name={name} email={email} />
+            <StripePayment
+              totalPrice={totalPrice}
+              setUpdateShopReviewModal={setUpdateShopReviewModal}
+              name={name}
+              email={email}
+            />
           </Elements>
         )}
         {paymentMethod === "CASH_ON_DELIVERY" && (
-          <CashOnDelivery totalPrice={totalPrice} name={name} email={email} />
+          <CashOnDelivery
+            totalPrice={totalPrice}
+            setUpdateShopReviewModal={setUpdateShopReviewModal}
+            name={name}
+            email={email}
+          />
         )}
       </div>
+      <ShopReviewModal
+        updateShopReviewModal={updateShopReviewModal}
+        setUpdateShopReviewModal={setUpdateShopReviewModal}
+      />
     </>
   );
 };

@@ -20,12 +20,21 @@ const orderAPi = baseApi.injectEndpoints({
           body: statusInfo,
         };
       },
-      invalidatesTags: ["order"],
+      invalidatesTags: ["order", "transition"],
     }),
     userOrder: builder.query({
       query: () => {
         return {
           url: "order",
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
+    userOrderShopList: builder.query({
+      query: () => {
+        return {
+          url: "order/shop-list",
           method: "GET",
         };
       },
@@ -48,4 +57,5 @@ export const {
   useUserOrderQuery,
   useGetVendorAllOrdersQuery,
   useUpdateOrderStatusMutation,
+  useUserOrderShopListQuery,
 } = orderAPi;

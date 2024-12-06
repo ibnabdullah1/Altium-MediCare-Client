@@ -8,7 +8,12 @@ import { useCreateOrderMutation } from "../../../Redux/features/order/orderApi";
 import { useAddPaymentMutation } from "../../../Redux/features/payment/paymentApi";
 import { RootState } from "../../../Redux/features/store";
 
-const StripePayment = ({ totalPrice, name, email }: any) => {
+const StripePayment = ({
+  totalPrice,
+  name,
+  email,
+  setUpdateShopReviewModal,
+}: any) => {
   const stripe = useStripe();
   const elements = useElements();
   const [createOrder] = useCreateOrderMutation();
@@ -101,6 +106,7 @@ const StripePayment = ({ totalPrice, name, email }: any) => {
           const res = await createOrder({ orders }).unwrap();
           if (res.status) {
             setIsProcessing(false);
+            setUpdateShopReviewModal(true);
             dispatch(clearCart());
             toast.success(res.message);
           }

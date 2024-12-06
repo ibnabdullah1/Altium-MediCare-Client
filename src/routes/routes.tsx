@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MainLayout from "../Layout/MainLayout";
 import Checkout2 from "../Pages/Customer/Checkout/Checkout2";
+import FollowedShops from "../Pages/Customer/FollowedShops/FollowedShops";
 import MyShoppingCart from "../Pages/Customer/MyShoppingCart/MyShoppingCart";
 import OrderHistory from "../Pages/Customer/OrderHistory/OrderHistory";
 import MyWishlist from "../Pages/Customer/Wishlist/Wishlist";
@@ -19,6 +20,7 @@ import CreateShop from "../Pages/Vendor/CreateShop/CreateShop";
 import ManageOrders from "../Pages/Vendor/ManageOrders/ManageOrders";
 import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
 import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
+import ProductTranslation from "../Pages/Vendor/ProductTranslation/ProductTranslation";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
 
@@ -123,6 +125,10 @@ const router = createBrowserRouter([
         path: "recent-products",
         element: <Dashboard />,
       },
+      {
+        path: "followed-shops",
+        element: <FollowedShops />,
+      },
 
       // Vendor Routes
       {
@@ -147,11 +153,19 @@ const router = createBrowserRouter([
       },
       {
         path: "Manage-Orders",
-        element: <ManageOrders />,
+        element: (
+          <VendorPrivateRoute>
+            <ManageOrders />
+          </VendorPrivateRoute>
+        ),
       },
       {
         path: "transactions-history",
-        element: <Dashboard />,
+        element: (
+          <VendorPrivateRoute>
+            <ProductTranslation />
+          </VendorPrivateRoute>
+        ),
       },
       {
         path: "reviews",

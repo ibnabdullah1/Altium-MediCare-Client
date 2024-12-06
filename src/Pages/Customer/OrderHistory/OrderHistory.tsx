@@ -1,3 +1,4 @@
+import { Tag } from "antd";
 import AntTable from "../../../Components/Table/AntTable";
 import { useUserOrderQuery } from "../../../Redux/features/order/orderApi";
 import { formatDate } from "../../../utils/formatDate";
@@ -36,20 +37,19 @@ const OrderHistory = () => {
       dataIndex: "paymentStatus",
       key: "paymentStatus",
       render: (status: string) => (
-        <span
-          className={`px-2 py-1 rounded ${
-            status === "PAID"
-              ? "bg-green/10 text-green"
-              : status === "PENDING"
-              ? "bg-primary/10 text-primary"
+        <Tag
+          color={
+            status === "PENDING"
+              ? "processing"
+              : status === "PAID"
+              ? "green"
               : status === "FAILED"
-              ? "bg-red/10 text-red"
-              : ""
+              ? "red"
+              : "gray"
           }
-            `}
         >
           {status}
-        </span>
+        </Tag>
       ),
     },
     {
@@ -57,21 +57,21 @@ const OrderHistory = () => {
       dataIndex: "shippingStatus",
       key: "shippingStatus",
       render: (status: string) => (
-        <span
-          className={`px-2 py-1 rounded ${
+        <Tag
+          color={
             status === "PENDING"
-              ? "bg-primary/10 text-primary"
+              ? "processing"
               : status === "SHIPPED"
-              ? "bg-blue-100 text-blue-800"
+              ? "blue"
               : status === "DELIVERED"
-              ? "bg-green/10 text-green"
+              ? "green"
               : status === "CANCELLED"
-              ? "bg-red/10 text-red"
-              : "bg-gray-200 text-gray-600"
-          }`}
+              ? "red"
+              : "gray"
+          }
         >
           {status}
-        </span>
+        </Tag>
       ),
     },
     {

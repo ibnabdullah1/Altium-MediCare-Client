@@ -6,6 +6,7 @@ import {
   useUpdateOrderStatusMutation,
 } from "../../../Redux/features/order/orderApi";
 import { PaymentStatus, ShippingStatus } from "../../../types/types";
+import { formatDate } from "../../../utils/formatDate";
 
 const { Option } = Select; // Destructure Option component for easier usage
 
@@ -105,6 +106,13 @@ const ManageOrders = () => {
       render: (id: any) => <p className="uppercase">order{id.slice(0, 4)}</p>,
     },
     {
+      title: "Customer",
+      dataIndex: "customer",
+      key: "customer",
+      render: (customer: any) => <p>{customer?.name}</p>,
+    },
+
+    {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
@@ -169,6 +177,12 @@ const ManageOrders = () => {
           ))}
         </Select>
       ),
+    },
+    {
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt: string) => <p>{formatDate(createdAt)}</p>,
     },
   ];
 

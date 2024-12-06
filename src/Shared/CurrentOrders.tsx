@@ -1,9 +1,9 @@
+import { Tag } from "antd";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import { useUserOrderQuery } from "../Redux/features/order/orderApi";
 import { formatDate } from "../utils/formatDate";
-import { SHIPPING_STATUS } from "../utils/userRole";
 
 const CurrentOrders = () => {
   const { data, error, isLoading } = useUserOrderQuery(undefined);
@@ -65,21 +65,21 @@ const CurrentOrders = () => {
                           <p>{formatDate(createdAt)}</p>
                         </td>
                         <td className="py-3 w-[90px] text-center text-[13px]">
-                          <span
-                            className={`${
-                              shippingStatus === SHIPPING_STATUS.DELIVERED
-                                ? "bg-green px-2 text-white"
-                                : shippingStatus === SHIPPING_STATUS.SHIPPED
-                                ? "bg-primary px-2 text-white"
-                                : shippingStatus === SHIPPING_STATUS.CANCELLED
-                                ? "bg-red px-2 text-white"
-                                : shippingStatus === SHIPPING_STATUS.PENDING
-                                ? "bg-blue-600 px-2 text-white"
-                                : ""
-                            } py-1 text-xs rounded-full font-medium`}
+                          <Tag
+                            color={
+                              shippingStatus === "PENDING"
+                                ? "processing"
+                                : shippingStatus === "SHIPPED"
+                                ? "blue"
+                                : shippingStatus === "DELIVERED"
+                                ? "green"
+                                : shippingStatus === "CANCELLED"
+                                ? "red"
+                                : "gray"
+                            }
                           >
                             {shippingStatus}
-                          </span>
+                          </Tag>
                         </td>
                       </tr>
                     ))}
