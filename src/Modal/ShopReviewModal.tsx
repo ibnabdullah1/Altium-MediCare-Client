@@ -16,7 +16,7 @@ const ShopReviewModal = ({
   const [rating, setRating] = useState(0);
   const { TextArea } = Input;
   const navigate = useNavigate();
-  const { data, isLoading, error } = useUserOrderShopListQuery(undefined);
+  const { data, isLoading } = useUserOrderShopListQuery(undefined);
   const [createShopReview] = useCreateShopReviewMutation();
 
   const handleStarChange = (value: any) => {

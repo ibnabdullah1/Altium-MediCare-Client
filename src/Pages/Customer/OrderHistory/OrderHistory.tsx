@@ -4,7 +4,7 @@ import { useUserOrderQuery } from "../../../Redux/features/order/orderApi";
 import { formatDate } from "../../../utils/formatDate";
 
 const OrderHistory = () => {
-  const { data, error, isLoading } = useUserOrderQuery(undefined);
+  const { data, isLoading } = useUserOrderQuery(undefined);
 
   // Define table columns
   const columns = [

@@ -24,7 +24,7 @@ const OfferBanner = () => {
 };
 
 export default OfferBanner;
-const OfferBannerCard = ({ image, title }) => {
+const OfferBannerCard = ({ image, title }: any) => {
   return (
     <div
       style={{

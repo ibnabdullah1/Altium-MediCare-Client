@@ -3,15 +3,16 @@ import { Dropdown, Modal } from "antd";
 import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { toast } from "react-toastify";
-import AntTable from "../../../Components/Table/AntTable";
-import UpdateProductModal from "../../../Modal/UpdateProductModal";
+import AntTable from "../../Components/Table/AntTable";
+import UpdateProductModal from "../../Modal/UpdateProductModal";
 import {
+  useAllProductsQuery,
   useDeleteProductMutation,
-  useVendorAllProductsQuery,
-} from "../../../Redux/features/product/productApi";
-import { formatDate } from "../../../utils/formatDate";
-const ManageProducts = () => {
-  const { data, error, isLoading } = useVendorAllProductsQuery(undefined);
+} from "../../Redux/features/product/productApi";
+import { formatDate } from "../../utils/formatDate";
+
+const ManageAllProducts = () => {
+  const { data, error, isLoading } = useAllProductsQuery(undefined);
   const [deleteProduct] = useDeleteProductMutation();
   const [updateProductModal, setUpdateProductModal] = useState(false);
   const [productData, setProductData] = useState<any>(null);
@@ -167,4 +168,4 @@ const ManageProducts = () => {
   );
 };
 
-export default ManageProducts;
+export default ManageAllProducts;

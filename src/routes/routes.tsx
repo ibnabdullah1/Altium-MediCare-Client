@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MainLayout from "../Layout/MainLayout";
-import Checkout2 from "../Pages/Customer/Checkout/Checkout2";
+import ManageAllProducts from "../Pages/Admin/ManageAllProducts";
+import Checkout from "../Pages/Customer/Checkout/Checkout";
 import FollowedShops from "../Pages/Customer/FollowedShops/FollowedShops";
 import MyShoppingCart from "../Pages/Customer/MyShoppingCart/MyShoppingCart";
 import OrderHistory from "../Pages/Customer/OrderHistory/OrderHistory";
@@ -73,7 +74,6 @@ const router = createBrowserRouter([
         path: "user-profile",
         element: (
           <PrivateRoute>
-            {" "}
             <Profile />
           </PrivateRoute>
         ),
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-all-products",
-        element: <Dashboard />,
+        element: <ManageAllProducts />,
       },
       {
         path: "blacklist-shops",
@@ -115,15 +115,11 @@ const router = createBrowserRouter([
       },
       {
         path: "checkout",
-        element: <Checkout2 />,
+        element: <Checkout />,
       },
       {
         path: "order-history",
         element: <OrderHistory />,
-      },
-      {
-        path: "recent-products",
-        element: <Dashboard />,
       },
       {
         path: "followed-shops",

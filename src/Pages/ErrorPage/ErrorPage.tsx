@@ -15,7 +15,7 @@ const NotFoundPage = () => {
         <div className="flex justify-center mt-3">
           {" "}
           <Link
-            href={"/home"}
+            to={"/home"}
             className="text-white  hover:bg-primary bg-primary/70 duration-300 px-3 py-1"
           >
             Back to Home

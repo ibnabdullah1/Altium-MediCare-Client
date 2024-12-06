@@ -57,7 +57,7 @@ const MyWishlist = () => {
       title: "Stock Status",
       dataIndex: "stock_status",
       key: "stock_status",
-      render: (stockStatus: boolean) => (
+      render: () => (
         // <p
         //   className={`font-semibold ${stockStatus ? "text-green" : "text-red"}`}
         // >

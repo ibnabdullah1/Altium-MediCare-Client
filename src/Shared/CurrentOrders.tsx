@@ -6,7 +6,7 @@ import { useUserOrderQuery } from "../Redux/features/order/orderApi";
 import { formatDate } from "../utils/formatDate";
 
 const CurrentOrders = () => {
-  const { data, error, isLoading } = useUserOrderQuery(undefined);
+  const { data, isLoading } = useUserOrderQuery(undefined);
   return (
     <div className="bg-white text-secondary/80 mt-4 rounded">
       <div className="flex justify-between items-center mb-3 border-b p-6">

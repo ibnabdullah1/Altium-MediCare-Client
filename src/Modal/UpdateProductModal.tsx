@@ -1,22 +1,28 @@
-import { Checkbox, Input, Select, SelectProps } from "antd";
-import { ChangeEvent, useEffect, useState } from "react";
+import { Checkbox, Input, Modal, Select, SelectProps } from "antd";
+import { useEffect, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { toast } from "react-toastify";
-import { productCategories } from "../../../Data/productsData"; // Ensure you import this from correct path
-import { useCreateProductMutation } from "../../../Redux/features/product/productApi";
-import { useGetAllShopQuery } from "../../../Redux/features/shop/shopApi";
-import CustomFileInput from "../../../Shared/SelectImage";
+import { productCategories } from "../Data/productsData";
+import { useUpdateProductMutation } from "../Redux/features/product/productApi";
+import { useGetAllShopQuery } from "../Redux/features/shop/shopApi";
+import CustomFileInput from "../Shared/SelectImage";
 
-const AddProduct = () => {
+const UpdateProductModal = ({
+  setUpdateProductModal,
+  updateProductModal,
+  productData,
+}: any) => {
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState<string>("");
-  const [shopId, setShopId] = useState<string>("");
+  const [category, setCategory] = useState<string>(productData?.category);
+  const [shopId, setShopId] = useState<string>(productData?.shop?.id);
   const [shopOptions, setShopOptions] = useState<any[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [isFlashSale, setIsFlashSale] = useState<boolean>(false);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [createProduct] = useCreateProductMutation();
+  const [imagePreviews, setImagePreviews] = useState<string[]>(
+    productData?.images
+  );
+  const [updateProduct] = useUpdateProductMutation();
   const { TextArea } = Input;
   const { data, isLoading } = useGetAllShopQuery(undefined);
 
@@ -33,13 +39,13 @@ const AddProduct = () => {
     }
   }, [data]);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: any) => {
     const files = e.target.files;
     if (files) {
       const newFiles = Array.from(files);
-      setImageFiles((prev) => [...prev, ...newFiles]);
+      setImageFiles((prev: any) => [...prev, ...newFiles]);
 
-      newFiles.forEach((file) => {
+      newFiles.forEach((file: any) => {
         const reader = new FileReader();
         reader.onloadend = () => {
           setImagePreviews((prev) => [...prev, reader.result as string]);
@@ -59,24 +65,30 @@ const AddProduct = () => {
     const weight = Number(e.target.weight.value);
     const inventory = Number(e.target.inventory.value);
 
-    const productData = {
+    const httpsUrls = imagePreviews?.filter((url) =>
+      url.startsWith("https://")
+    );
+
+    const updateProductInfoData = {
       name,
       price,
       description,
       brand,
       dimensions,
       weight,
+      images: httpsUrls,
       category,
       shopId,
       tags,
       inventory,
       isFlashSale,
+      createdAt: productData?.createdAt,
     };
 
     try {
       const formData = new FormData();
       // Append data
-      formData.append("data", JSON.stringify(productData));
+      formData.append("data", JSON.stringify(updateProductInfoData));
       // Append image if selected
       if (imageFiles) {
         imageFiles.forEach((file) => {
@@ -84,13 +96,14 @@ const AddProduct = () => {
         });
       }
       setLoading(true);
-      const res = await createProduct(formData).unwrap();
+      const res = await updateProduct({
+        formData,
+        id: productData?.id,
+      }).unwrap();
       if (res?.success) {
         setLoading(false);
         toast.success(res?.message);
-        // e.target.reset();
-        // setImageFiles([]);
-        // setImagePreviews([]);
+        setUpdateProductModal(false);
       }
     } catch (error: any) {
       setLoading(false);
@@ -114,15 +127,15 @@ const AddProduct = () => {
   }
 
   return (
-    <div className="rounded-lg py-20 bg-white">
-      <div className="mb-8 space-y-4 text-center">
-        <h1 className="heading">Create Your Product</h1>
-        <p className="text-gray-600">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit aliquid,
-          Non distinctio vel iste.
-        </p>
-      </div>
-      <form className="w-full px-5 lg:px-10 mt-4" onSubmit={handleSubmit}>
+    <Modal
+      title="Update Product"
+      style={{ top: 20 }}
+      open={updateProductModal}
+      onOk={() => setUpdateProductModal(false)}
+      onCancel={() => setUpdateProductModal(false)}
+      footer={null}
+    >
+      <form className="w-full mt-4" onSubmit={handleSubmit}>
         {/* Name and Price */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <div className="py-2">
@@ -132,6 +145,7 @@ const AddProduct = () => {
             <Input
               id="name"
               name="name"
+              defaultValue={productData?.name}
               placeholder="Enter product name"
               required
             />
@@ -145,6 +159,7 @@ const AddProduct = () => {
               id="price"
               name="price"
               type="number"
+              defaultValue={productData?.price}
               min={1}
               placeholder="Enter product price"
               required
@@ -162,8 +177,8 @@ const AddProduct = () => {
               id="inventory"
               name="inventory"
               type="number"
+              defaultValue={productData?.inventory}
               min={1}
-              defaultValue={1}
               placeholder="Enter Inventory Quantity"
               required
             />
@@ -178,6 +193,7 @@ const AddProduct = () => {
               showSearch
               placeholder="Select Category"
               optionFilterProp="label"
+              defaultValue={productData?.category}
               onChange={(value) => setCategory(value)}
               options={productCategories}
               allowClear={true}
@@ -196,7 +212,11 @@ const AddProduct = () => {
               loading={isLoading}
               placeholder="Select Shop"
               optionFilterProp="label"
-              onChange={(value) => setShopId(value)}
+              defaultValue={{
+                label: productData?.shop?.name,
+                value: productData?.shop?.id,
+              }}
+              onChange={(value: any) => setShopId(value)}
               options={shopOptions}
               allowClear={true}
             />
@@ -207,7 +227,12 @@ const AddProduct = () => {
             <label htmlFor="brand" className="block text-sm">
               Brand (Optional)
             </label>
-            <Input id="brand" name="brand" placeholder="Enter product brand" />
+            <Input
+              id="brand"
+              defaultValue={productData?.brand}
+              name="brand"
+              placeholder="Enter product brand"
+            />
           </div>
         </div>
 
@@ -219,6 +244,7 @@ const AddProduct = () => {
           <Select
             mode="tags"
             style={{ width: "100%" }}
+            defaultValue={productData?.tags}
             placeholder="Select Tags"
             onChange={handleTagsChange}
             options={options}
@@ -234,8 +260,9 @@ const AddProduct = () => {
             <Input
               id="weight"
               name="weight"
+              defaultValue={productData?.weight}
               type="number"
-              min={1}
+              min={0}
               placeholder="Enter product weight"
             />
           </div>
@@ -245,6 +272,7 @@ const AddProduct = () => {
             </label>
             <Input
               id="dimensions"
+              defaultValue={productData?.dimensions}
               name="dimensions"
               placeholder="Enter product dimensions"
             />
@@ -253,7 +281,10 @@ const AddProduct = () => {
 
         {/* Flash Sale Checkbox */}
         <div className="py-2">
-          <Checkbox onChange={(e) => setIsFlashSale(e.target.checked)}>
+          <Checkbox
+            defaultChecked={productData?.isFlashSale}
+            onChange={(e) => setIsFlashSale(e.target.checked)}
+          >
             Is Flash Sale?
           </Checkbox>
         </div>
@@ -263,7 +294,12 @@ const AddProduct = () => {
           <label htmlFor="description" className="block text-sm">
             Description <span className="text-red font-bold">*</span>
           </label>
-          <TextArea id="description" name="description" rows={6} />
+          <TextArea
+            defaultValue={productData?.description}
+            id="description"
+            name="description"
+            rows={6}
+          />
         </div>
 
         {/* Image Upload */}
@@ -275,36 +311,29 @@ const AddProduct = () => {
 
         {/* Buttons */}
         <div className="py-2 flex items-center gap-2">
-          <div>
-            <button
-              type="submit"
-              className="bg-primary px-8 transform font-semibold duration-100 hover:bg-[rgb(10,154,115,0.8)] py-3 text-white font-raleway uppercase"
-              disabled={loading}
-            >
-              {loading ? (
-                <TbFidgetSpinner className="animate-spin m-auto text-2xl" />
-              ) : (
-                "Add Product"
-              )}
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="bg-primary px-8 transform font-semibold duration-100 hover:bg-[rgb(10,154,115,0.8)] py-3 text-white font-raleway uppercase rounded"
+            disabled={loading}
+          >
+            {loading ? (
+              <TbFidgetSpinner className="animate-spin m-auto text-2xl" />
+            ) : (
+              "Update Product"
+            )}
+          </button>
 
           <button
-            type="reset"
-            className="bg-red px-8 transform font-semibold duration-100 hover:bg-[rgb(240,21,21,0.8)] py-3 text-white font-raleway uppercase"
+            className="bg-red px-8 transform font-semibold duration-100 hover:bg-[rgb(240,21,21,0.8)] py-3 text-white font-raleway uppercase rounded"
             disabled={loading}
-            onClick={() => {
-              setCategory("");
-              setShopId("");
-              setIsFlashSale(false);
-            }}
+            onClick={() => setUpdateProductModal(false)}
           >
-            Reset
+            Cancel
           </button>
         </div>
       </form>
-    </div>
+    </Modal>
   );
 };
 
-export default AddProduct;
+export default UpdateProductModal;

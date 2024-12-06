@@ -10,7 +10,7 @@ const shopApi = baseApi.injectEndpoints({
           body: shopInfo,
         };
       },
-      invalidatesTags: ["shop"],
+      invalidatesTags: ["shop", "user_profile"],
     }),
     getAllShop: builder.query({
       query: () => {

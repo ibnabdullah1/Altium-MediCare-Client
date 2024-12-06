@@ -2,7 +2,7 @@ import { AiFillProduct } from "react-icons/ai";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdJoinFull, MdOutlineAddBox } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProductCard from "../../Components/Products/ProductCard";
 import { selectCurrentUser } from "../../Redux/features/auth/authSlice";
@@ -14,13 +14,12 @@ import { formatDate } from "../../utils/formatDate";
 
 const ShopDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const user = useSelector(selectCurrentUser);
   const [followShop] = useFollowShopMutation();
 
-  const { data, error, isLoading } = useGetSingleShopQuery(id);
+  const { data, isLoading } = useGetSingleShopQuery(id);
   if (isLoading) {
-    return <p>Loading...</p>;
+    return;
   }
   const shop = data?.data;
   const handleFollowShop = async () => {

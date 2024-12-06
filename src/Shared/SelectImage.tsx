@@ -44,7 +44,7 @@ const CustomFileInput = ({
         <div className="flex gap-5 my-5 flex-wrap">
           {imagePreviews.map((imageDataUrl: any, index: number) => (
             <div
-              key={imageDataUrl}
+              key={index}
               className="relative w-20 h-14 object-cover rounded border border-dashed border-primary p-1"
             >
               <img

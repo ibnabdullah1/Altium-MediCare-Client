@@ -88,8 +88,8 @@ const categories = [
   },
 ];
 
-const CategoryItem = ({ href, icon: Icon, name }) => (
-  <Link className=" group cursor-pointer flex flex-col  items-center">
+const CategoryItem = ({ icon: Icon, name }: any) => (
+  <Link to={"#"} className=" group cursor-pointer flex flex-col  items-center">
     <Icon className="text-[#8cb2b2] text-3xl group-hover:text-primary duration-200" />
     <h6 className="text-xs mt-3 font-josefin md:text-sm font-bold text-secondary group-hover:text-primary duration-200">
       {name}

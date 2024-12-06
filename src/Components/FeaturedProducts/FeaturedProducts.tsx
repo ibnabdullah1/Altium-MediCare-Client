@@ -3,9 +3,9 @@ import offerImage2 from "../../assets/offerAds2.png";
 import { useAllProductsQuery } from "../../Redux/features/product/productApi";
 import ProductCard from "../Products/ProductCard";
 const FeaturedProducts = () => {
-  const { data, error, isLoading } = useAllProductsQuery(undefined);
+  const { data, isLoading } = useAllProductsQuery(undefined);
   if (isLoading) {
-    return <p>Loading...</p>;
+    return;
   }
 
   return (

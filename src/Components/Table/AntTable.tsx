@@ -55,7 +55,7 @@ export default function AntTable(props: any) {
               onChange: handlePageChange,
               showSizeChanger: false,
               pageSizeOptions: ["10", "25", "50", "100"],
-              onShowSizeChange: (current: any, newSize: any) => {
+              onShowSizeChange: (_current: any, newSize: any) => {
                 setLimit(newSize);
                 setCurrentPage(1);
               },
