@@ -60,7 +60,7 @@ const ProductOffer = () => {
             </div>
           </div>
 
-          <PrimaryLink address={"/"} level={"View Products"} />
+          <PrimaryLink address={"/all-collections"} level={"View Products"} />
         </div>
       </div>
     </div>

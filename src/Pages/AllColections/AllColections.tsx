@@ -2,6 +2,7 @@ import { Pagination, PaginationProps } from "antd";
 import { useEffect, useState } from "react";
 import ProductCard from "../../Components/Products/ProductCard";
 import { useAllProductsQuery } from "../../Redux/features/product/productApi";
+import LinkBanner from "../../Shared/LinkBanner";
 import FilterByBrand from "./FilterByBrand";
 import FilterByColors from "./FilterByColor";
 import FilterByPriceCategory from "./FilterByPriceCategory";
@@ -10,7 +11,7 @@ import FilterByRating from "./FilterByRating";
 import HeaderFilters from "./HeaderFilter";
 
 const AllCollections = () => {
-  const { data, isLoading } = useAllProductsQuery(undefined);
+  const { data } = useAllProductsQuery(undefined);
 
   const [compareProducts, setCompareProducts] = useState<any[]>([]);
   const [comparisonError, setComparisonError] = useState<string | null>(null);
@@ -172,103 +173,106 @@ const AllCollections = () => {
     filteredProducts?.length
   ); // Ending index
   return (
-    <div className="fixed-w">
-      <div className="py-10 font-josefin">
-        <h3 className="text-center heading my-6">All Collections</h3>
+    <>
+      <LinkBanner activeLocation={"Product Shop"} group={"Shop"} />
+      <div className="fixed-w">
+        <div className="py-10 font-josefin">
+          {/* Header Filters */}
+          <HeaderFilters
+            startIndex={startIndex}
+            endIndex={endIndex}
+            totalItem={filteredProducts?.length}
+            setSearchQuery={setSearchQuery}
+            setSortOrder={setSortOrder}
+            searchQuery={searchQuery}
+            searchQueryKey={searchQueryKey}
+            setSearchQueryKey={setSearchQueryKey}
+            sortOrder={sortOrder}
+            hasFilters={hasFilters}
+            handleClearFilters={handleClearFilters}
+          />
 
-        {/* Header Filters */}
-        <HeaderFilters
-          startIndex={startIndex}
-          endIndex={endIndex}
-          totalItem={filteredProducts?.length}
-          setSearchQuery={setSearchQuery}
-          setSortOrder={setSortOrder}
-          searchQuery={searchQuery}
-          searchQueryKey={searchQueryKey}
-          setSearchQueryKey={setSearchQueryKey}
-          sortOrder={sortOrder}
-          hasFilters={hasFilters}
-          handleClearFilters={handleClearFilters}
-        />
-
-        <div className="lg:grid grid-cols-4 gap-4 w-full">
-          {/* Filter & Sort Section */}
-          <div className="lg:col-span-1 w-full lg:flex-col flex-col md:flex-row flex lg:justify-start justify-center py-4 lg:py-0 gap-4">
-            <FilterByPriceCategory
-              categories={categories}
-              handleCategorySelect={handleCategorySelect}
-            />
-
-            <FilterByPriceRange
-              setSelectedPriceRange={setSelectedPriceRange}
-              selectedPriceRange={selectedPriceRange}
-            />
-            <FilterByRating setSelectedRating={setSelectedRating} />
-
-            <FilterByBrand
-              brands={brands}
-              handleBrandSelect={handleBrandSelect}
-            />
-            <FilterByColors />
-          </div>
-
-          {/* Product Grid Section */}
-          <div className="lg:col-span-3 h-fit min-h-[500px] border rounded-lg p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {paginatedProducts.length ? (
-                paginatedProducts.map((product: any) => (
-                  <div key={product.id} className="relative">
-                    <ProductCard
-                      product={product}
-                      handleAddToCompare={handleAddToCompare}
-                    />
-                  </div>
-                ))
-              ) : (
-                <p className="col-span-full text-center text-gray-600">
-                  No products found.
-                </p>
-              )}
-            </div>
-            <div className="py-6">
-              <Pagination
-                align="center"
-                current={currentPage}
-                total={filteredProducts?.length}
-                pageSize={itemsPerPage}
-                onChange={onChange}
-                showSizeChanger={false}
+          <div className="lg:grid grid-cols-4 gap-4 w-full">
+            {/* Filter & Sort Section */}
+            <div className="lg:col-span-1 w-full lg:flex-col flex-col md:flex-row flex lg:justify-start justify-center py-4 lg:py-0 gap-4">
+              <FilterByPriceCategory
+                categories={categories}
+                handleCategorySelect={handleCategorySelect}
               />
+
+              <FilterByPriceRange
+                setSelectedPriceRange={setSelectedPriceRange}
+                selectedPriceRange={selectedPriceRange}
+              />
+              <FilterByRating setSelectedRating={setSelectedRating} />
+
+              <FilterByBrand
+                brands={brands}
+                handleBrandSelect={handleBrandSelect}
+              />
+              <FilterByColors />
+            </div>
+
+            {/* Product Grid Section */}
+            <div className="lg:col-span-3 h-fit min-h-[500px] border rounded-lg p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {paginatedProducts.length ? (
+                  paginatedProducts.map((product: any) => (
+                    <div key={product.id} className="relative">
+                      <ProductCard
+                        product={product}
+                        handleAddToCompare={handleAddToCompare}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <p className="col-span-full text-center text-gray-600">
+                    No products found.
+                  </p>
+                )}
+              </div>
+              <div className="py-6">
+                <Pagination
+                  align="center"
+                  current={currentPage}
+                  total={filteredProducts?.length}
+                  pageSize={itemsPerPage}
+                  onChange={onChange}
+                  showSizeChanger={false}
+                />
+              </div>
             </div>
           </div>
+
+          {/* Comparison Error Message */}
+          {comparisonError && (
+            <div className="text-red-500 text-center mt-4">
+              {comparisonError}
+            </div>
+          )}
+
+          {/* Comparison List */}
+          {compareProducts.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-center font-bold">Comparing Products</h3>
+              <div className="grid lg:grid-cols-3 gap-4 mt-4">
+                {compareProducts.map((product) => (
+                  <div key={product.id} className="border p-4">
+                    <ProductCard product={product} />
+                    <button
+                      onClick={() => handleRemoveFromCompare(product.id)}
+                      className="text-red-500 mt-2"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-
-        {/* Comparison Error Message */}
-        {comparisonError && (
-          <div className="text-red-500 text-center mt-4">{comparisonError}</div>
-        )}
-
-        {/* Comparison List */}
-        {compareProducts.length > 0 && (
-          <div className="mt-8">
-            <h3 className="text-center font-bold">Comparing Products</h3>
-            <div className="grid lg:grid-cols-3 gap-4 mt-4">
-              {compareProducts.map((product) => (
-                <div key={product.id} className="border p-4">
-                  <ProductCard product={product} />
-                  <button
-                    onClick={() => handleRemoveFromCompare(product.id)}
-                    className="text-red-500 mt-2"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+      </div>{" "}
+    </>
   );
 };
 

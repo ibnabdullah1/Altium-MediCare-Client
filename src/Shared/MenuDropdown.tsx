@@ -2,7 +2,6 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { CiUser } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
-import { IoCreateOutline } from "react-icons/io5";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -56,7 +55,7 @@ const MenuDropdown = () => {
           {user ? (
             <div className="max-h-[90vh] overflow-y-auto pt-4">
               <Link
-                to={"/user-profile"}
+                to={"dashboard/user-profile"}
                 className="flex items-center cursor-pointer px-4 py-2 text-sm text-gray-700 border-l-2 border-transparent  hover:border-primary  hover:text-primary"
               >
                 <span className="mr-2">
@@ -72,16 +71,6 @@ const MenuDropdown = () => {
                   <MdOutlineDashboardCustomize />{" "}
                 </span>
                 Dashboard
-              </Link>
-              <Link
-                to={"/create-post"}
-                className="flex lg:hidden items-center cursor-pointer px-4 py-2 text-sm text-gray-700 border-l-2 border-transparent  hover:border-primary  hover:text-primary"
-              >
-                {" "}
-                <span className="mr-2">
-                  <IoCreateOutline />
-                </span>
-                Wishlist
               </Link>
 
               <hr className="my-3" />

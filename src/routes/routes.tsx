@@ -28,7 +28,11 @@ import AllProductTranslation from "../Pages/Admin/AllProductTranslation";
 import ManageAllShops from "../Pages/Admin/ManageAllShops";
 import ReviewActivities from "../Pages/Admin/ReviewActivities";
 import AllCollections from "../Pages/AllColections/AllColections";
+import ChangePassword from "../Pages/ChangePassword/ChangePassword";
+import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 import VendorShopReview from "../Pages/Vendor/VendorShopReview/VendorShopReview";
+import ComingSoonPage from "../Shared/ComingSoonPage";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
@@ -41,6 +45,12 @@ const routes = [
     errorElement: <NotFoundPage />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/about-us", element: <ComingSoonPage /> },
+      { path: "/blogs", element: <ComingSoonPage /> },
+      { path: "/faqs", element: <ComingSoonPage /> },
+      { path: "/privacy-policy", element: <ComingSoonPage /> },
+      { path: "/refund-policy", element: <ComingSoonPage /> },
+      { path: "/terms-of-service", element: <ComingSoonPage /> },
       { path: "/product-details/:id", element: <ProductDetails /> },
       { path: "/all-collections", element: <AllCollections /> },
       {
@@ -52,10 +62,13 @@ const routes = [
         ),
       },
       { path: "/sign-in", element: <SignIn /> },
+      { path: "/change-password", element: <ChangePassword /> },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      { path: "/reset-password", element: <ResetPassword /> },
+
       { path: "/sign-up", element: <SignUp /> },
     ],
   },
-
   // Dashboard Routes
   {
     path: "/dashboard",
@@ -133,9 +146,9 @@ const routes = [
       {
         path: "create-shop",
         element: (
-          <VendorPrivateRoute>
+          <PrivateRoute>
             <CreateShop />
-          </VendorPrivateRoute>
+          </PrivateRoute>
         ),
       },
       {

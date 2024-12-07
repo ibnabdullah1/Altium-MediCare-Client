@@ -111,7 +111,7 @@ const SignIn = () => {
 
           <div className="mt-4">
             <Link
-              to={"/forget-password"}
+              to={"/forgot-password"}
               className="text-sm hover:underline hover:text-primary text-gray-400 mt-3"
             >
               FORGOTTEN YOUR PASSWORD?

@@ -1,8 +1,22 @@
-import { Checkbox, Input, Select, SelectProps } from "antd";
-import { ChangeEvent, useEffect, useState } from "react";
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Input,
+  InputRef,
+  Select,
+  SelectProps,
+  Space,
+} from "antd";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { toast } from "react-toastify";
-import { productCategories } from "../../../Data/productsData"; // Ensure you import this from correct path
+import {
+  brandOptions,
+  productCategories,
+  productTags,
+} from "../../../Data/productsData"; // Ensure you import this from correct path
 import { useCreateProductMutation } from "../../../Redux/features/product/productApi";
 import { useGetVendorAllShopsQuery } from "../../../Redux/features/shop/shopApi";
 import CustomFileInput from "../../../Shared/SelectImage";
@@ -11,6 +25,7 @@ import { ShopStatus } from "../../../types/types";
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState<string>("");
+  const [brand, setBrand] = useState<string>("");
   const [shopId, setShopId] = useState<string>("");
   const [shopOptions, setShopOptions] = useState<any[]>([]);
   const [tags, setTags] = useState<string[]>([]);
@@ -18,10 +33,11 @@ const AddProduct = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [createProduct] = useCreateProductMutation();
+  const [items, setItems] = useState(brandOptions);
+  const inputRef = useRef<InputRef>(null);
+  const [newBrandName, setNewBrandName] = useState("");
   const { TextArea } = Input;
   const { data, isLoading } = useGetVendorAllShopsQuery(undefined);
-
-  const options: SelectProps["options"] = [];
 
   // Loading shops when the data is fetched
   useEffect(() => {
@@ -57,7 +73,6 @@ const AddProduct = () => {
     e.preventDefault();
     const name = e.target.name.value;
     const description = e.target.description.value;
-    const brand = e.target.brand.value;
     const dimensions = e.target.dimensions.value;
     const price = Number(e.target.price.value);
     const weight = Number(e.target.weight.value);
@@ -92,9 +107,9 @@ const AddProduct = () => {
       if (res?.success) {
         setLoading(false);
         toast.success(res?.message);
-        // e.target.reset();
-        // setImageFiles([]);
-        // setImagePreviews([]);
+        e.target.reset();
+        setImageFiles([]);
+        setImagePreviews([]);
       }
     } catch (error: any) {
       setLoading(false);
@@ -109,7 +124,11 @@ const AddProduct = () => {
     setTags(value);
   };
 
-  // Options for Select component
+  const options: SelectProps["options"] = [
+    ...productTags.map((tag) => ({ value: tag, label: tag })),
+  ];
+
+  // Dynamically add additional options
   for (let i = 10; i < 36; i++) {
     options.push({
       value: i.toString(36) + i,
@@ -117,6 +136,18 @@ const AddProduct = () => {
     });
   }
 
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewBrandName(event.target.value);
+  };
+
+  const addItem = (e: any) => {
+    e.preventDefault();
+    setItems([...items, newBrandName]);
+    setNewBrandName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   return (
     <div className="rounded-lg py-20 bg-white">
       <div className="mb-8 space-y-4 text-center">
@@ -208,10 +239,35 @@ const AddProduct = () => {
 
           {/* Brand */}
           <div className="py-2">
-            <label htmlFor="brand" className="block text-sm">
-              Brand (Optional)
+            <label htmlFor="category" className="block text-sm">
+              Brand <span className="text-red font-bold">*</span>
             </label>
-            <Input id="brand" name="brand" placeholder="Enter product brand" />
+            <Select
+              className="w-full"
+              showSearch
+              allowClear={true}
+              onChange={(value) => setBrand(value)}
+              placeholder="Select your brand"
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <Divider style={{ margin: "8px 0" }} />
+                  <Space style={{ padding: "0 8px 4px" }}>
+                    <Input
+                      placeholder="Please enter item"
+                      ref={inputRef}
+                      value={newBrandName}
+                      onChange={onNameChange}
+                      onKeyDown={(e) => e.stopPropagation()}
+                    />
+                    <Button type="text" icon={<FaPlus />} onClick={addItem}>
+                      Add item
+                    </Button>
+                  </Space>
+                </>
+              )}
+              options={items.map((item) => ({ label: item, value: item }))}
+            />
           </div>
         </div>
 
@@ -222,6 +278,7 @@ const AddProduct = () => {
           </label>
           <Select
             mode="tags"
+            showSearch
             style={{ width: "100%" }}
             placeholder="Select Tags"
             onChange={handleTagsChange}
@@ -267,7 +324,14 @@ const AddProduct = () => {
           <label htmlFor="description" className="block text-sm">
             Description <span className="text-red font-bold">*</span>
           </label>
-          <TextArea id="description" name="description" rows={6} />
+          <TextArea
+            defaultValue={
+              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem."
+            }
+            id="description"
+            name="description"
+            rows={6}
+          />
         </div>
 
         {/* Image Upload */}

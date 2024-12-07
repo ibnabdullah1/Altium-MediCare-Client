@@ -10,23 +10,23 @@ const LinkBanner = ({ subLocation, activeLocation, group }: any) => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
-      className=" bg-white h-[300px] "
+      className=" bg-white h-[200px] "
     >
       <div className="fixed-w flex flex-col justify-center h-full ml-7">
         <h3 className="font-bold heading mb-5">{group ? group : "Home"}</h3>
         <div className="text-lg leading-tight  mb-4 flex items-center gap-2">
           <Link
-            className="text-gray-500 hover:text-primary font-bold cursor-pointer flex items-center gap-2"
+            className="text-gray-700 hover:text-primary font-semibold cursor-pointer flex items-center gap-1"
             to={"/"}
           >
-            <HiHome className="text-primary/60" />
+            <HiHome className="text-primary/90" />
             Home
           </Link>
           {subLocation && (
             <Link to={`/${subLocation.toLowerCase()}`}>/{subLocation}</Link>
           )}
           {activeLocation && (
-            <span className="text-primary font-bold cursor-pointer">
+            <span className="text-primary font-semibold cursor-pointer">
               / {activeLocation}
             </span>
           )}

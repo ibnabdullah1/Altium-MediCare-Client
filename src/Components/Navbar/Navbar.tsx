@@ -124,10 +124,10 @@ const Navbar = () => {
 
             <ul className="menu" onClick={handleSubMenuToggle}>
               <li className="menu-item">
-                <a href="#">Home</a>
+                <a href="/">Home</a>
               </li>
               <li className="menu-item">
-                <a href="#">About</a>
+                <a href="/about-us">About</a>
               </li>
               <li
                 className={`menu-item menu-item-has-children ${
@@ -261,7 +261,7 @@ const Navbar = () => {
                 </ul>
               </li>
               <li className="menu-item">
-                <a href="#">Blog</a>
+                <a href="/blogs">Blog</a>
               </li>
               <li
                 className={`menu-item menu-item-has-children ${
@@ -310,19 +310,16 @@ const Navbar = () => {
                   className="sub-menu"
                 >
                   <li className="menu-item">
-                    <a href="#">Privacy Policy</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
                   </li>
                   <li className="menu-item">
-                    <a href="#"> Refund Policy</a>
+                    <a href="/refund-policy"> Refund Policy</a>
                   </li>
                   <li className="menu-item">
-                    <a href="#">Terms of Service</a>
+                    <a href="/terms-of-service">Terms of Service</a>
                   </li>
                   <li className="menu-item">
-                    <a href="#">Service</a>
-                  </li>
-                  <li className="menu-item">
-                    <a href="#">FAQ</a>
+                    <a href="/faqs">FAQ</a>
                   </li>
                 </ul>
               </li>

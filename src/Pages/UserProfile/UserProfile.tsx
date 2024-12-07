@@ -1,5 +1,7 @@
+import { Alert } from "antd";
 import { IoCameraOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   selectCurrentUser,
@@ -44,6 +46,27 @@ const Profile = () => {
 
   return (
     <>
+      <div className="mb-5">
+        <Alert
+          message={
+            <>
+              <p>
+                It's a good idea to{" "}
+                <Link
+                  to="/change-password"
+                  className="font-semibold text-primary"
+                >
+                  Change Password
+                </Link>{" "}
+                for better security.
+              </p>
+            </>
+          }
+          type="info"
+          showIcon
+          closable
+        />
+      </div>
       <div className="max-w-4xl mx-auto relative">
         <div className="rounded-t-lg h-[200px] overflow-hidden">
           <img

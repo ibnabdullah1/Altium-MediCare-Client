@@ -33,7 +33,8 @@
     "redux-persist": "^6.0.0",
     "sweetalert2": "^11.14.5",
     "swiper": "^11.1.10",
-    "tailwind-scrollbar": "^3.1.0"
+    "tailwind-scrollbar": "^3.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
