@@ -138,9 +138,9 @@ const ProductDetails = () => {
   return (
     <div className="fixed-w pb-14">
       {/* Product Image Details */}
-      <div className="grid grid-cols-8 pt-10 pb-14">
+      <div className="grid lg:grid-cols-8 pt-10 pb-14">
         {/* Product Images */}
-        <div className="col-span-3 p-4">
+        <div className="lg:col-span-3 p-4">
           <div className="border rounded-lg">
             <img
               src={selectedImageUrl}
@@ -168,7 +168,7 @@ const ProductDetails = () => {
             ))}
           </div>
         </div>
-        <div className="col-span-3 p-4">
+        <div className="lg:col-span-3 p-4">
           {/* Product Details */}
           <h2 className="font-bold text-3xl">{product.name}</h2>
           <div className="flex font-mono items-center gap-2 text-gray-400">
@@ -339,7 +339,7 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-2 border rounded-lg">
+        <div className="lg:col-span-2 border rounded-lg">
           {/* Additional Details */}
           <div className="flex justify-center p-4">
             <div className="bg-primary rounded-full p-1">
@@ -442,7 +442,7 @@ const ProductDetails = () => {
       </div>
       {/* Product Description and reviews */}
       <div className="border rounded-lg font-roboto">
-        <div className="flex items-center justify-between gap-3 border-b p-4">
+        <div className="md:flex items-center justify-between gap-3 border-b p-4 space-y-3">
           {/* Tabs */}
           <div className="flex items-center gap-3 text-sm">
             <button

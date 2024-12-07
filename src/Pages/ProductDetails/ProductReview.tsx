@@ -30,8 +30,8 @@ const ProductReview = ({ product }: any) => {
 
   return (
     <div className="p-4">
-      <div className="grid grid-cols-7 gap-4 ">
-        <div className="col-span-3">
+      <div className="grid lg:grid-cols-7 gap-4 ">
+        <div className="lg:col-span-3">
           <div className="h-min bg-white border p-4 space-y-6 rounded-lg">
             <p className="text-2xl mb-2">Submit Your Review</p>
             <div className="text-2xl mb-2 flex items-center gap-2">
@@ -90,7 +90,7 @@ const ProductReview = ({ product }: any) => {
             </div>
           </div>
         </div>
-        <div className="col-span-4">
+        <div className="lg:col-span-4">
           <SendAReview id={product.id} />
         </div>
       </div>

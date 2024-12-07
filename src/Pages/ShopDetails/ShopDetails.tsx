@@ -44,7 +44,7 @@ const ShopDetails = () => {
   return (
     <div className="fixed-w">
       {/* Profile */}
-      <div className="grid grid-cols-4 p-4 gap-4 ">
+      <div className="grid md:grid-cols-4 p-4 gap-4 ">
         <div
           style={{
             backgroundImage: `url("https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465254_1pN9MGrA831idD6zIBL7q8rnZZpUCQTy.jpg")`,
@@ -53,10 +53,10 @@ const ShopDetails = () => {
             boxShadow: "0 0 5px 2px rgba(0, 0, 0, 0.02)",
             backgroundRepeat: "no-repeat",
           }}
-          className="col-span-3 min-h-[250px] rounded-lg flex items-end "
+          className="md:col-span-3 min-h-[250px] rounded-lg flex items-end "
         >
-          <div className="rounded-lg bg-white w-full p-4 flex gap-4">
-            <div className="relative -top-10 w-24 h-24 flex justify-center">
+          <div className="rounded-lg bg-white w-full p-4 lg:flex gap-4">
+            <div className="relative lg:-top-10 w-24 h-24 flex justify-center">
               <img
                 src={shop?.logo}
                 alt=""
@@ -90,8 +90,8 @@ const ShopDetails = () => {
                 </div>
               </div>
               <p className="text-sm">{shop.description}</p>
-              <div className="flex justify-between items-center font-roboto py-4">
-                <div className="flex items-center gap-10 ">
+              <div className="lg:flex justify-between items-center font-roboto py-4 space-y-3">
+                <div className="md:flex  items-center gap-10 ">
                   <div>
                     <h5 className="text-sm font-medium text-gray-600">
                       Location
@@ -137,18 +137,18 @@ const ShopDetails = () => {
         </div>
         <div
           style={{ boxShadow: "0 0 5px 2px rgba(0, 0, 0, 0.02)" }}
-          className="col-span-1 rounded-lg"
+          className="md:col-span-1 rounded-lg"
         >
           <div className="p-4 border-b">
             <h4 className="font-medium font-roboto text-lg text-center">
               Shop Owner
             </h4>
           </div>
-          <div className="p-4">
+          <div className="p-4 flex justify-center items-center">
             <img
               src={shop?.owner?.profilePhoto}
               alt=""
-              className="h-[100px] rounded-lg object-cover bg-white w-full"
+              className="h-[150px] lg:h-[100px] rounded-lg lg:object-cover bg-white lg:w-full"
             />
           </div>
           <h4 className="font-medium font-roboto text-base text-center mb-4">
