@@ -83,18 +83,7 @@ const ManageAllShops = () => {
         <p className="font-semibold w-[100px]">{name}</p>
       ),
     },
-    {
-      title: "Total Product",
-      dataIndex: "products",
-      key: "products",
-      render: (products: any[]) => <p className="w-[100px]">{products}</p>,
-    },
-    {
-      title: "Total Order",
-      dataIndex: "orders",
-      key: "orders",
-      render: (orders: any[]) => <p className="w-[100px]">{orders}</p>,
-    },
+
     {
       title: "Status",
       dataIndex: "status",
@@ -116,6 +105,33 @@ const ManageAllShops = () => {
         </Select>
       ),
     },
+    {
+      title: "Total Product",
+      dataIndex: "_count",
+      key: "_count",
+      render: (_count: any) => <p className="w-[100px]">{_count?.products}</p>,
+    },
+    {
+      title: "Total Order",
+      dataIndex: "_count",
+      key: "_count",
+      render: (_count: any) => <p className="w-[100px]">{_count?.orders}</p>,
+    },
+    {
+      title: "Total Review",
+      dataIndex: "_count",
+      key: "_count",
+      render: (_count: any) => (
+        <p className="w-[100px]">{_count?.shopReview}</p>
+      ),
+    },
+    {
+      title: "Total Followers",
+      dataIndex: "_count",
+      key: "_count",
+      render: (_count: any) => <p className="w-[100px]">{_count?.followers}</p>,
+    },
+
     {
       title: "Created At",
       dataIndex: "createdAt",

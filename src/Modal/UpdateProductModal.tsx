@@ -6,6 +6,7 @@ import { productCategories } from "../Data/productsData";
 import { useUpdateProductMutation } from "../Redux/features/product/productApi";
 import { useGetVendorAllShopsQuery } from "../Redux/features/shop/shopApi";
 import CustomFileInput from "../Shared/SelectImage";
+import { ShopStatus } from "../types/types";
 
 const UpdateProductModal = ({
   setUpdateProductModal,
@@ -31,10 +32,13 @@ const UpdateProductModal = ({
   // Loading shops when the data is fetched
   useEffect(() => {
     if (data?.data?.length > 0) {
-      const options = data.data.map((shop: any) => ({
-        label: shop.name,
-        value: shop.id,
-      }));
+      const options = data.data
+        .filter((shop: any) => shop.status === ShopStatus.ACTIVE)
+        .map((shop: any) => ({
+          label: shop.name,
+          value: shop.id,
+        }));
+
       setShopOptions(options);
     }
   }, [data]);

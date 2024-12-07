@@ -24,6 +24,7 @@ import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
 import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
 import ProductTranslation from "../Pages/Vendor/ProductTranslation/ProductTranslation";
 
+import AllProductTranslation from "../Pages/Admin/AllProductTranslation";
 import ManageAllShops from "../Pages/Admin/ManageAllShops";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -104,7 +105,7 @@ const routes = [
         path: "transactions",
         element: (
           <AdminPrivateRoute>
-            <h2>Coming Soon transactions content</h2>
+            <AllProductTranslation />
           </AdminPrivateRoute>
         ),
       },

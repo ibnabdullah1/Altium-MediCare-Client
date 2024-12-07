@@ -9,6 +9,7 @@ import {
   useDeleteShopMutation,
   useGetVendorAllShopsQuery,
 } from "../../../Redux/features/shop/shopApi";
+import { ShopStatus } from "../../../types/types";
 import { formatDate } from "../../../utils/formatDate";
 
 const ManageShops = () => {
@@ -106,6 +107,7 @@ const ManageShops = () => {
       key: "action",
       render: (record: any) => (
         <Dropdown
+          disabled={record.status === ShopStatus.BLOCKED}
           menu={{
             items: [
               {

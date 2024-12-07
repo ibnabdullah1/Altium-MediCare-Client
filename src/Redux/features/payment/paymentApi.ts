@@ -11,7 +11,7 @@ const paymentApi = baseApi.injectEndpoints({
         };
       },
     }),
-    productTranslation: builder.query({
+    vendorProductTranslation: builder.query({
       query: () => {
         return {
           url: "payment/vendor/product-transition",
@@ -20,7 +20,20 @@ const paymentApi = baseApi.injectEndpoints({
       },
       providesTags: ["transition"],
     }),
+    productTranslation: builder.query({
+      query: () => {
+        return {
+          url: "payment/product-transition",
+          method: "GET",
+        };
+      },
+      providesTags: ["transition"],
+    }),
   }),
 });
 
-export const { useAddPaymentMutation, useProductTranslationQuery } = paymentApi;
+export const {
+  useAddPaymentMutation,
+  useProductTranslationQuery,
+  useVendorProductTranslationQuery,
+} = paymentApi;
