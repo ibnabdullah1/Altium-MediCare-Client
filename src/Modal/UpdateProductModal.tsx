@@ -4,7 +4,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { productCategories } from "../Data/productsData";
 import { useUpdateProductMutation } from "../Redux/features/product/productApi";
-import { useGetAllShopQuery } from "../Redux/features/shop/shopApi";
+import { useGetVendorAllShopsQuery } from "../Redux/features/shop/shopApi";
 import CustomFileInput from "../Shared/SelectImage";
 
 const UpdateProductModal = ({
@@ -24,7 +24,7 @@ const UpdateProductModal = ({
   );
   const [updateProduct] = useUpdateProductMutation();
   const { TextArea } = Input;
-  const { data, isLoading } = useGetAllShopQuery(undefined);
+  const { data, isLoading } = useGetVendorAllShopsQuery(undefined);
 
   const options: SelectProps["options"] = [];
 

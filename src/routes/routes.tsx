@@ -24,6 +24,7 @@ import ManageProducts from "../Pages/Vendor/ManageProducts/ManageProducts";
 import ManageShops from "../Pages/Vendor/ManageShops/ManageShops";
 import ProductTranslation from "../Pages/Vendor/ProductTranslation/ProductTranslation";
 
+import ManageAllShops from "../Pages/Admin/ManageAllShops";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
@@ -76,6 +77,14 @@ const routes = [
         ),
       },
       {
+        path: "manage-all-shops",
+        element: (
+          <AdminPrivateRoute>
+            <ManageAllShops />
+          </AdminPrivateRoute>
+        ),
+      },
+      {
         path: "manage-all-products",
         element: (
           <AdminPrivateRoute>
@@ -83,14 +92,14 @@ const routes = [
           </AdminPrivateRoute>
         ),
       },
-      {
-        path: "blacklist-shops",
-        element: (
-          <AdminPrivateRoute>
-            <h2>Coming Soon</h2>
-          </AdminPrivateRoute>
-        ),
-      },
+      // {
+      //   path: "blacklist-shops",
+      //   element: (
+      //     <AdminPrivateRoute>
+      //       <h2>Coming Soon</h2>
+      //     </AdminPrivateRoute>
+      //   ),
+      // },
       {
         path: "transactions",
         element: (

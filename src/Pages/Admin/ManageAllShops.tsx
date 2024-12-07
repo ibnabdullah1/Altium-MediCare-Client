@@ -1,19 +1,23 @@
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Dropdown, Modal, Tag } from "antd";
+import { Dropdown, Modal, Select } from "antd";
+import { Option } from "antd/es/mentions";
 import { useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { toast } from "react-toastify";
-import AntTable from "../../../Components/Table/AntTable";
-import ShopUpdateModal from "../../../Modal/ShopUpdateModal";
+import AntTable from "../../Components/Table/AntTable";
+import ShopUpdateModal from "../../Modal/ShopUpdateModal";
 import {
   useDeleteShopMutation,
-  useGetVendorAllShopsQuery,
-} from "../../../Redux/features/shop/shopApi";
-import { formatDate } from "../../../utils/formatDate";
+  useGetAllShopsQuery,
+  useUpdateShopStatusMutation,
+} from "../../Redux/features/shop/shopApi";
+import { ShopStatus } from "../../types/types";
+import { formatDate } from "../../utils/formatDate";
 
-const ManageShops = () => {
-  const { data, error, isLoading } = useGetVendorAllShopsQuery(undefined);
+const ManageAllShops = () => {
+  const { data, error, isLoading } = useGetAllShopsQuery(undefined);
   const [deleteShop] = useDeleteShopMutation();
+  const [updateShopStatus] = useUpdateShopStatusMutation();
   const [updateShopModal, setUpdateShopModal] = useState(false);
 
   const [shopData, setShopData] = useState<any>(null);
@@ -43,7 +47,19 @@ const ManageShops = () => {
       },
     });
   };
-
+  const handleStatusChange = async (shopId: string, newStatus: ShopStatus) => {
+    try {
+      const res = await updateShopStatus({
+        shopId,
+        status: newStatus,
+      }).unwrap();
+      if (res.status) {
+        toast.success(`Shop status updated to ${newStatus}`);
+      }
+    } catch (err) {
+      toast.error("Failed to update shop status");
+    }
+  };
   // Handle update action
 
   const columns = [
@@ -71,26 +87,33 @@ const ManageShops = () => {
       title: "Total Product",
       dataIndex: "products",
       key: "products",
-      render: (products: any[]) => (
-        <p className="w-[100px]">{products?.length || 0}</p>
-      ),
+      render: (products: any[]) => <p className="w-[100px]">{products}</p>,
     },
     {
       title: "Total Order",
       dataIndex: "orders",
       key: "orders",
-      render: (orders: any[]) => (
-        <p className="w-[100px]">{orders?.length || 0}</p>
-      ),
+      render: (orders: any[]) => <p className="w-[100px]">{orders}</p>,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status: string) => (
-        <div className="w-[80px]">
-          <Tag color={status === "ACTIVE" ? "green" : "red"}>{status}</Tag>
-        </div>
+      render: (role: ShopStatus, record: any) => (
+        <Select
+          value={role}
+          onChange={(value) =>
+            handleStatusChange(record.id, value as ShopStatus)
+          }
+          style={{ width: 150 }}
+          disabled={isLoading}
+        >
+          {Object.values(ShopStatus).map((statusOption) => (
+            <Option key={statusOption} value={statusOption}>
+              {statusOption}
+            </Option>
+          ))}
+        </Select>
       ),
     },
     {
@@ -166,4 +189,4 @@ const ManageShops = () => {
   );
 };
 
-export default ManageShops;
+export default ManageAllShops;

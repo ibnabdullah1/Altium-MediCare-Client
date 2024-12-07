@@ -22,9 +22,14 @@ const AdminMenu = () => {
       />
       <MenuItem
         icon={TbLockCog}
+        label="Manage Shops"
+        address="manage-all-shops"
+      />
+      {/* <MenuItem
+        icon={TbLockCog}
         label="Blacklist Shops"
         address="blacklist-shops"
-      />
+      /> */}
       {/* <MenuItem
         icon={MdOutlineCategory}
         label="Manage Categories"

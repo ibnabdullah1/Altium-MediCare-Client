@@ -12,7 +12,16 @@ const shopApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["shop", "user_profile"],
     }),
-    getAllShop: builder.query({
+    getVendorAllShops: builder.query({
+      query: () => {
+        return {
+          url: "shop/vendor",
+          method: "GET",
+        };
+      },
+      providesTags: ["shop"],
+    }),
+    getAllShops: builder.query({
       query: () => {
         return {
           url: "shop",
@@ -58,14 +67,26 @@ const shopApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["shop_id", "shop"],
     }),
+    updateShopStatus: builder.mutation({
+      query: (shop) => {
+        return {
+          url: `shop/update-status/${shop.shopId}`,
+          method: "PUT",
+          body: { status: shop.status },
+        };
+      },
+      invalidatesTags: ["shop"],
+    }),
   }),
 });
 
 export const {
   useCreateShopMutation,
-  useGetAllShopQuery,
+  useGetAllShopsQuery,
   useGetSingleShopQuery,
   useFollowShopMutation,
   useDeleteShopMutation,
   useUpdateShopMutation,
+  useGetVendorAllShopsQuery,
+  useUpdateShopStatusMutation,
 } = shopApi;
