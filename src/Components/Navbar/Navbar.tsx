@@ -281,7 +281,7 @@ const Navbar = () => {
                   className="sub-menu"
                 >
                   <li className="menu-item">
-                    <a href="#">All collections</a>
+                    <a href="/all-collections">All collections</a>
                   </li>
                   <li className="menu-item">
                     <a href="#">Product Media</a>

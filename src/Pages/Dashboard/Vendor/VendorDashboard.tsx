@@ -140,12 +140,12 @@ const VendorDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
+      <div className="grid lg:grid-cols-2 gap-4 space-y-4">
+        <div className="space-y-4">
           <VendorCurrentOrders />
           <OrdersChart />
         </div>
-        <div>
+        <div className="space-y-4">
           <SalesAnalytics />
           <RecentViewProducts />
         </div>

@@ -42,6 +42,7 @@ export const baseApi = createApi({
     "user_profile",
     "follow-shop",
     "transition",
+    "shop-review",
   ],
   endpoints: () => ({}),
 });

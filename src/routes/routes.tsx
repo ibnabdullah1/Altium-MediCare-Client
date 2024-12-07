@@ -26,6 +26,9 @@ import ProductTranslation from "../Pages/Vendor/ProductTranslation/ProductTransl
 
 import AllProductTranslation from "../Pages/Admin/AllProductTranslation";
 import ManageAllShops from "../Pages/Admin/ManageAllShops";
+import ReviewActivities from "../Pages/Admin/ReviewActivities";
+import AllCollections from "../Pages/AllColections/AllColections";
+import VendorShopReview from "../Pages/Vendor/VendorShopReview/VendorShopReview";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import PrivateRoute from "./PrivateRoute";
 import VendorPrivateRoute from "./VerndorPrivateRoute";
@@ -39,6 +42,7 @@ const routes = [
     children: [
       { path: "/", element: <Home /> },
       { path: "/product-details/:id", element: <ProductDetails /> },
+      { path: "/all-collections", element: <AllCollections /> },
       {
         path: "/shop/:id",
         element: (
@@ -113,7 +117,7 @@ const routes = [
         path: "review-activities",
         element: (
           <AdminPrivateRoute>
-            <h2>Coming Soon review-activitie content</h2>
+            <ReviewActivities />
           </AdminPrivateRoute>
         ),
       },
@@ -178,7 +182,7 @@ const routes = [
         path: "reviews",
         element: (
           <VendorPrivateRoute>
-            <h2>Coming Soon reviews content</h2>
+            <VendorShopReview />
           </VendorPrivateRoute>
         ),
       },

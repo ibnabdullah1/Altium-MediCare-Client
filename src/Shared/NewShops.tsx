@@ -2,17 +2,19 @@ import { Tag } from "antd";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-import { useUserOrderQuery } from "../Redux/features/order/orderApi";
+import { useGetAllShopsQuery } from "../Redux/features/shop/shopApi";
+import { ShopStatus } from "../types/types";
 import { formatDate } from "../utils/formatDate";
 
-const CurrentOrders = () => {
-  const { data, isLoading } = useUserOrderQuery(undefined);
+const NewShops = () => {
+  const { data, isLoading } = useGetAllShopsQuery(undefined);
+
   return (
-    <div className="bg-white text-secondary/80 mt-4 rounded">
+    <div className="bg-white text-secondary/80 mt-4 rounded-lg">
       <div className="flex justify-between items-center mb-3 border-b p-5">
-        <h1 className="font-semibold">Current Orders</h1>
+        <h1 className="font-semibold">New Shops</h1>
         <Link
-          to={"order-history"}
+          to={"manage-all-shops"}
           className="font-semibold hover:text-primary text-sm"
         >
           View All
@@ -55,10 +57,10 @@ const CurrentOrders = () => {
                   ))
                 : data?.data
                     .slice(0, 6)
-                    .map(({ shop, shippingStatus, createdAt, id }: any) => (
+                    .map(({ name, status, createdAt, id }: any) => (
                       <tr key={id}>
                         <td className="py-3 text-left text-[13px] font-medium text-secondary/70">
-                          {shop?.name}
+                          {name}
                         </td>
 
                         <td className="py-3 text-left text-secondary/40 text-[13px]">
@@ -67,18 +69,16 @@ const CurrentOrders = () => {
                         <td className="py-3 w-[90px] text-center text-[13px]">
                           <Tag
                             color={
-                              shippingStatus === "PENDING"
-                                ? "processing"
-                                : shippingStatus === "SHIPPED"
-                                ? "blue"
-                                : shippingStatus === "DELIVERED"
+                              status === ShopStatus.ACTIVE
                                 ? "green"
-                                : shippingStatus === "CANCELLED"
+                                : status === ShopStatus.BLOCKED
                                 ? "red"
+                                : status === ShopStatus.DELETED
+                                ? "warning"
                                 : "gray"
                             }
                           >
-                            {shippingStatus}
+                            {status}
                           </Tag>
                         </td>
                       </tr>
@@ -91,4 +91,4 @@ const CurrentOrders = () => {
   );
 };
 
-export default CurrentOrders;
+export default NewShops;

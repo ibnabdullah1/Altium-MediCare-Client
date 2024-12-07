@@ -163,7 +163,7 @@ const SalesAnalytics = () => {
   };
 
   return (
-    <div className=" rounded  bg-white lg:col-span-8 p-6 mt-4">
+    <div className=" rounded  bg-white lg:col-span-8 p-6 h-[420px]">
       <div className="lg:flex items-start justify-between gap-3">
         <h2 className=" font-semibold">Average Check Size (USD)</h2>
         <div className="flex gap-2">

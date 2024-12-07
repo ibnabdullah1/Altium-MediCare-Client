@@ -25,3 +25,37 @@ body.hidden-scrolling {
 .form_input {
   @apply appearance-none block w-full p-5 border placeholder-secondary/60 focus:outline-none focus:border-primary transition duration-150 ease-in-out;
 }
+
+/* Check box & radio box */
+.input-check label,
+.input-radio label {
+  @apply relative flex items-center cursor-pointer select-none;
+}
+
+.input-check input[type="checkbox"],
+.input-radio input[type="radio"] {
+  @apply absolute opacity-0 cursor-pointer;
+}
+
+.input-check label::before {
+  content: "";
+  @apply w-4 h-4 mr-2 border rounded border-primary;
+}
+
+.input-check input[type="checkbox"]:checked + label::before {
+  content: "✔";
+  @apply grid place-items-center text-slate-100 text-[0.7rem] bg-primary;
+}
+
+.input-radio label::before {
+  content: "";
+  @apply w-[12px] h-[12px] mr-2 rounded-full border !border-primary;
+}
+.input-radio label::after {
+  content: "";
+  @apply absolute w-[6px] h-[6px] top-1/2 -left-[0.9px] -translate-y-1/2 scale-0 ml-[0.25rem] bg-primary rounded-full;
+}
+
+.input-radio input[type="radio"]:checked + label::after {
+  @apply scale-100 -translate-y-1/2;
+}

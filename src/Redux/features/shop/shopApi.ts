@@ -30,6 +30,24 @@ const shopApi = baseApi.injectEndpoints({
       },
       providesTags: ["shop"],
     }),
+    getVendorAllReview: builder.query({
+      query: () => {
+        return {
+          url: "shop/vendor/review",
+          method: "GET",
+        };
+      },
+      providesTags: ["shop-review"],
+    }),
+    getAllShopReview: builder.query({
+      query: () => {
+        return {
+          url: "shop/review",
+          method: "GET",
+        };
+      },
+      providesTags: ["shop-review"],
+    }),
     getSingleShop: builder.query({
       query: (id) => {
         return {
@@ -89,4 +107,6 @@ export const {
   useUpdateShopMutation,
   useGetVendorAllShopsQuery,
   useUpdateShopStatusMutation,
+  useGetAllShopReviewQuery,
+  useGetVendorAllReviewQuery,
 } = shopApi;

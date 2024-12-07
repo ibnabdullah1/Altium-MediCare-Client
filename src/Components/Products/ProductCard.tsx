@@ -14,7 +14,7 @@ import {
   removeWishlist,
 } from "../../Redux/features/wishlist/wishlistSlice";
 import "./ProductCard.css";
-const ProductCard = ({ product }: any) => {
+const ProductCard = ({ product, handleAddToCompare }: any) => {
   const { id, name, price, thumbnail, inventory, shop } = product;
   const dispatch = useDispatch();
   const wishlist = useSelector((state: RootState) => state.wishList.items);
@@ -106,7 +106,10 @@ const ProductCard = ({ product }: any) => {
             <HiOutlineShoppingCart />
           </button>
         )}
-        <button className="bg-white hover:text-white text-xl p-3 text-secondary/60 hover:bg-primary duration-300">
+        <button
+          onClick={() => handleAddToCompare(product)}
+          className="bg-white hover:text-white text-xl p-3 text-secondary/60 hover:bg-primary duration-300"
+        >
           <MdCompareArrows />
         </button>
       </div>
@@ -115,11 +118,10 @@ const ProductCard = ({ product }: any) => {
       </div>
 
       <div className=" px-3 font-josefin">
-        <Link
-          to={`/product-details/${id}`}
-          className="text-xl font-medium mt-2"
-        >
-          {name}
+        <Link to={`/product-details/${id}`}>
+          <h4 className="text-xl font-medium mt-2 hover:text-primary duration-150">
+            {name}
+          </h4>
         </Link>
 
         <div className="flex justify-between items-center w-full">

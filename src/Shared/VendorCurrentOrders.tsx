@@ -17,8 +17,8 @@ const VendorCurrentOrders = () => {
   const orders = data?.data || [];
 
   return (
-    <div className="bg-white text-secondary/80 mt-4 rounded">
-      <div className="flex justify-between items-center mb-3 border-b p-6">
+    <div className="bg-white text-secondary/80 mt-4 rounded-lg">
+      <div className="flex justify-between items-center mb-3 border-b p-5">
         <h1 className="font-semibold">Current Orders</h1>
         <Link
           to={"manage-orders"}

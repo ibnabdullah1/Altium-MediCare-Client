@@ -20,7 +20,7 @@ const reviewApi = baseApi.injectEndpoints({
           body: reviewInfo,
         };
       },
-      invalidatesTags: ["shop_id", "shop"],
+      invalidatesTags: ["shop_id", "shop", "shop-review"],
     }),
   }),
 });

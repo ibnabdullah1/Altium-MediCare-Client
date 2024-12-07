@@ -38,7 +38,7 @@ const RecentViewProducts = () => {
               {resentViewProduct &&
                 resentViewProduct.slice(0, 4).map((product, i) => (
                   <tr key={i}>
-                    <td className="py-3">
+                    <td className="py-3.5">
                       <Link
                         to={`/product-details/${product.id}`}
                         className="flex items-center gap-2"

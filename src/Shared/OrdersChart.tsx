@@ -148,7 +148,7 @@ const OrdersChart = () => {
   };
 
   return (
-    <div className="col-span-12 rounded bg-white lg:col-span-8 p-6 mt-4">
+    <div className="col-span-12 rounded-lg bg-white lg:col-span-8 p-5 h-[395px]">
       <div className="lg:flex items-start justify-between gap-3">
         <h2 className="font-semibold">Orders Per Day</h2>
 

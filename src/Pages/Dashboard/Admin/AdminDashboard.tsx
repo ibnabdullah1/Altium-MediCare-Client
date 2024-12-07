@@ -3,10 +3,10 @@ import { HiMiniUser } from "react-icons/hi2";
 import { MdLocalOffer } from "react-icons/md";
 import { SiCodechef } from "react-icons/si";
 import { TbShoppingCartCheck } from "react-icons/tb";
-import CurrentOrders from "../../../Shared/CurrentOrders";
+import NewShops from "../../../Shared/NewShops";
 import OrdersChart from "../../../Shared/OrdersChart";
+import RecentViewProducts from "../../../Shared/RecentViewProducts";
 import SalesAnalytics from "../../../Shared/SalesAnalytics ";
-import TopSalesItems from "../../../Shared/TopSalesItems";
 import Weather from "../../../Shared/Weather";
 const AdminDashboard = () => {
   return (
@@ -89,14 +89,14 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-2 gap-4">
-        <div>
-          <CurrentOrders />
+      <div className="grid lg:grid-cols-2 gap-4 space-y-4">
+        <div className="space-y-4">
+          <NewShops />
           <OrdersChart />
         </div>
-        <div>
+        <div className="space-y-4">
           <SalesAnalytics />
-          <TopSalesItems />
+          <RecentViewProducts />
         </div>
       </div>
     </div>
